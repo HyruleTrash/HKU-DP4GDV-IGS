@@ -1,74 +1,136 @@
 @startuml
 
-class System.List
-class Unity.Camera
-class Unity.Vector3
-class Unity.GameObject
-
 Class Game << Singleton >>
-Game : Player player
+Game : PlayerData player
 Game : LevelManager levelManager
 Game : EntityManager entityManager
-Game --* Player
+Game --* PlayerData
 Game --* LevelManager
 Game --* EntityManager
 
-Class Player
-Player : GameObject playerObject
-Player : FirstPersonCamera camera
-Player : FirstPersonMovement movementController
-Player --* GameObject
-Player --* FirstPersonMovement
-Player --* FirstPersonCamera 
+Class PlayerData <<ScriptableObject>>
+PlayerData : FirstPersonCamera camera
+PlayerData : FirstPersonMovement movementController
+PlayerData : GunInventory guns
+PlayerData --* FirstPersonMovement
+PlayerData --* FirstPersonCamera 
+PlayerData --* GunInventory 
 
-Class FirstPersonMovement
-Class FirstPersonJump
-Class FirstPersonCamera 
+Class FirstPersonMovement <<ScriptableObject>>
+FirstPersonMovement : float speed
+Class FirstPersonCamera <<ScriptableObject>>
 FirstPersonCamera : Camera camera
-FirstPersonCamera --* Camera
 
-Class LevelManager
+Class GunInventory <<ScriptableObject>>
+GunInventory : Dictionary<KeyCode, GunBuilder> guns
+GunInventory : Dictionary<KeyCode, Gun> activeGuns
+GunInventory : KeyCode activeGunId
+GunInventory --* GunBuilder
+
+Class GunBuilder <<ScriptableObject>>
+GunBuilder : float fireRate
+GunBuilder : float reloadTime
+GunBuilder : IShootStrategy shootStrategy
+GunBuilder --* IShootStrategy
+
+Class Gun
+Gun : bool canShoot
+Gun : Timer fireRateTimer
+Gun : Timer reloadTimer
+Gun : IShootStrategy shootStrategy
+Gun --* IShootStrategy
+
+Interface IShootStrategy
+IShootStrategy : Shoot(ShootData data)
+IShootStrategy --> ShootData
+
+class RayCastShootStrategy <<ScriptableObject>>
+IShootStrategy <|-- RayCastShootStrategy
+
+class MultipleRayCastShootStrategy <<ScriptableObject>>
+IShootStrategy <|-- MultipleRayCastShootStrategy
+
+class ProjectileShootStrategy <<ScriptableObject>>
+ProjectileShootStrategy : ProjectileBuilder builder
+ProjectileShootStrategy --* ProjectileBuilder
+IShootStrategy <|-- ProjectileShootStrategy
+
+Class ShootData
+ShootData : Vector3 origin
+ShootData : Vector3 direction
+ShootData : Vector3 force
+ShootData : float spread
+ShootData : float maxDistance
+
+Class ProjectileBuilder <<ScriptableObject>>
+ProjectileBuilder : GameObject baseProjectilePrefab
+ProjectileBuilder : Projectile BuildProjectile()
+ProjectileBuilder --> Projectile
+
+Class Projectile
+Projectile : List<DamageTypeDecorator> damageTypes
+Projectile : GameObject body
+Projectile --* DamageTypeDecorator
+
+Class DamageTypeDecorator
+DamageTypes <-- DamageTypeDecorator
+
+Enum DamageTypes{
+Frost
+Fire
+Dark
+Holy
+}
+
+Interface IDamager
+IDamager : RetrieveDamage()
+
+Class LevelManager <<ScriptableObject>>
 LevelManager : int currentLevel
 LevelManager : List<LevelData> levels
 LevelManager --* LevelData
-LevelManager --> List
 
-Class LevelData
+Class LevelData <<ScriptableObject>>
 LevelData : Vector3 playerSpawn
 LevelData : Vector3 levelEnd
 LevelData : List<LevelDataEntity> entities
 LevelData --* LevelDataEntity
-LevelData --> Vector3
 
-Class LevelDataEntity
+Class LevelDataEntity <<ScriptableObject>>
 LevelDataEntity : Vector3 position
-LevelDataEntity --> Vector3
 
-Class DoorData
+Class DoorData <<ScriptableObject>>
 DoorData : LevelDataEntity KeyData
-DoorData --|> LevelDataEntity
+LevelDataEntity <|-- DoorData 
+DoorData --* LevelDataEntity
 
 Class EntityManager
 EntityManager : ObjectPool<IEntity> entities
-EntityManager : Player playerReference
-EntityManager --> Player
+EntityManager : PlayerEntity playerReference
+EntityManager --> PlayerEntity
 EntityManager --> ObjectPool
 EntityManager --* IEntity
-note right of EntityManager : Entities are enemies and Npc's,\nmoving living things that shouldnt move when-\nthe player isnt there.
+note left of EntityManager : Entities are enemies and Npc's,\nmoving living things that shouldnt move when-\nthe PlayerData isnt there.
+
+Class PlayerEntity
+PlayerEntity : PlayerData data
+PlayerEntity : GameObject body
+PlayerEntity --* PlayerData
+PlayerEntity --|> IEntity
 
 Interface IEntity
+IEntity : Update()
 IEntity --|> IPoolable
 
 class ObjectPool<IPoolable>{
-# List<T> activePool
-# List<T> inactivePool
+List<T> activePool
+List<T> inactivePool
 }
 interface IPoolable{
-# bool active
-# void OnEnableObject()
-# void OnDisableObject()
-# void DoDie()
+bool active
+void OnEnableObject()
+void OnDisableObject()
+void DoDie()
 }
-ObjectPool --> List
 
 @enduml
