@@ -1,0 +1,74 @@
+@startuml
+
+class System.List
+class Unity.Camera
+class Unity.Vector3
+class Unity.GameObject
+
+Class Game << Singleton >>
+Game : Player player
+Game : LevelManager levelManager
+Game : EntityManager entityManager
+Game --* Player
+Game --* LevelManager
+Game --* EntityManager
+
+Class Player
+Player : GameObject playerObject
+Player : FirstPersonCamera camera
+Player : FirstPersonMovement movementController
+Player --* GameObject
+Player --* FirstPersonMovement
+Player --* FirstPersonCamera 
+
+Class FirstPersonMovement
+Class FirstPersonJump
+Class FirstPersonCamera 
+FirstPersonCamera : Camera camera
+FirstPersonCamera --* Camera
+
+Class LevelManager
+LevelManager : int currentLevel
+LevelManager : List<LevelData> levels
+LevelManager --* LevelData
+LevelManager --> List
+
+Class LevelData
+LevelData : Vector3 playerSpawn
+LevelData : Vector3 levelEnd
+LevelData : List<LevelDataEntity> entities
+LevelData --* LevelDataEntity
+LevelData --> Vector3
+
+Class LevelDataEntity
+LevelDataEntity : Vector3 position
+LevelDataEntity --> Vector3
+
+Class DoorData
+DoorData : LevelDataEntity KeyData
+DoorData --|> LevelDataEntity
+
+Class EntityManager
+EntityManager : ObjectPool<IEntity> entities
+EntityManager : Player playerReference
+EntityManager --> Player
+EntityManager --> ObjectPool
+EntityManager --* IEntity
+note right of EntityManager : Entities are enemies and Npc's,\nmoving living things that shouldnt move when-\nthe player isnt there.
+
+Interface IEntity
+IEntity --|> IPoolable
+
+class ObjectPool<IPoolable>{
+# List<T> activePool
+# List<T> inactivePool
+}
+interface IPoolable{
+# bool active
+# void OnEnableObject()
+# void OnDisableObject()
+# void DoDie()
+}
+ObjectPool --> List
+
+@enduml
