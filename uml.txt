@@ -4,6 +4,8 @@ Class Game << Singleton >>
 Game : PlayerData player
 Game : LevelManager levelManager
 Game : EntityManager entityManager
+Game : UIButton startButton
+Game : void StartGame()
 Game --* PlayerData
 Game --* LevelManager
 Game --* EntityManager
@@ -12,14 +14,17 @@ Class PlayerData <<ScriptableObject>>
 PlayerData : FirstPersonCamera camera
 PlayerData : FirstPersonMovement movementController
 PlayerData : GunInventory guns
+PlayerData : void Load(Vector3 spawn)
 PlayerData --* FirstPersonMovement
 PlayerData --* FirstPersonCamera 
 PlayerData --* GunInventory 
 
 Class FirstPersonMovement <<ScriptableObject>>
 FirstPersonMovement : float speed
+
 Class FirstPersonCamera <<ScriptableObject>>
 FirstPersonCamera : Camera camera
+FirstPersonCamera : float sensitivity
 
 Class GunInventory <<ScriptableObject>>
 GunInventory : Dictionary<KeyCode, GunBuilder> guns
@@ -31,6 +36,7 @@ Class GunBuilder <<ScriptableObject>>
 GunBuilder : float fireRate
 GunBuilder : float reloadTime
 GunBuilder : IShootStrategy shootStrategy
+GunBuilder : Gun Build()
 GunBuilder --* IShootStrategy
 
 Class Gun
@@ -41,7 +47,7 @@ Gun : IShootStrategy shootStrategy
 Gun --* IShootStrategy
 
 Interface IShootStrategy
-IShootStrategy : Shoot(ShootData data)
+IShootStrategy : void Shoot(ShootData data)
 IShootStrategy --> ShootData
 
 class RayCastShootStrategy <<ScriptableObject>>
@@ -71,30 +77,45 @@ Class Projectile
 Projectile : List<DamageTypeDecorator> damageTypes
 Projectile : GameObject body
 Projectile --* DamageTypeDecorator
+Projectile ..|> IDamager
 
 Class DamageTypeDecorator
-DamageTypes <-- DamageTypeDecorator
+DamageTypeDecorator : DamageType affinity
+DamageTypeDecorator : float CalculateDamage(IDamagable other)
+DamageType <-- DamageTypeDecorator
+DamageTypeDecorator -> IDamagable
 
-Enum DamageTypes{
-Frost
-Fire
-Dark
-Holy
+Enum DamageType{
+ Frost
+ Fire
+ Dark
+ Holy
 }
 
 Interface IDamager
-IDamager : RetrieveDamage()
+IDamager : float RetrieveDamage()
+
+Interface IDamagable
+IDamagable : List<DamageType> weaknesses
+IDamagable : List<DamageType> affinities
+IDamagable : void TakeDamage(IDamager other)
+IDamagable -> IDamager
+IDamagable -> DamageType
 
 Class LevelManager <<ScriptableObject>>
 LevelManager : int currentLevel
 LevelManager : List<LevelData> levels
+LevelManager : void LoadLevel(int levelId)
+LevelManager : void AdvanceLevel()
 LevelManager --* LevelData
 
 Class LevelData <<ScriptableObject>>
 LevelData : Vector3 playerSpawn
 LevelData : Vector3 levelEnd
 LevelData : List<LevelDataEntity> entities
+LevelData : void Load()
 LevelData --* LevelDataEntity
+LevelData --> Game : dependent through singleton, used for level loading
 
 Class LevelDataEntity <<ScriptableObject>>
 LevelDataEntity : Vector3 position
@@ -118,19 +139,23 @@ PlayerEntity : GameObject body
 PlayerEntity --* PlayerData
 PlayerEntity --|> IEntity
 
+Class EnemyEntity
+EnemyEntity --|> IEntity
+EnemyEntity ..|> IDamagable
+
 Interface IEntity
-IEntity : Update()
+IEntity : void Update()
 IEntity --|> IPoolable
 
 class ObjectPool<IPoolable>{
-List<T> activePool
-List<T> inactivePool
+ List<T> activePool
+ List<T> inactivePool
 }
 interface IPoolable{
-bool active
-void OnEnableObject()
-void OnDisableObject()
-void DoDie()
+ bool active
+ void OnEnableObject()
+ void OnDisableObject()
+ void DoDie()
 }
 
 @enduml
