@@ -127,8 +127,6 @@ DoorData --* LevelDataEntity
 
 Class EntityManager
 EntityManager : ObjectPool<IEntity> entities
-EntityManager : PlayerEntity playerReference
-EntityManager --> PlayerEntity
 EntityManager --> ObjectPool
 EntityManager --* IEntity
 note left of EntityManager : Entities are enemies and Npc's,\nmoving living things that shouldnt move when-\nthe PlayerData isnt there.
