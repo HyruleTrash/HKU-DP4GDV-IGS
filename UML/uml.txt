@@ -6,6 +6,7 @@ Game : LevelManager levelManager
 Game : EntityManager entityManager
 Game : UIButton startButton
 Game : void StartGame()
+Game : void UpdateGame()
 Game --* PlayerData
 Game --* LevelManager
 Game --* EntityManager
@@ -21,20 +22,30 @@ PlayerData --* GunInventory
 
 Class FirstPersonMovement <<ScriptableObject>>
 FirstPersonMovement : float speed
+FirstPersonMovement : Update(PlayerEntity player)
+FirstPersonMovement -> PlayerEntity
 
 Class FirstPersonCamera <<ScriptableObject>>
 FirstPersonCamera : Camera camera
 FirstPersonCamera : float sensitivity
+FirstPersonCamera : Update(PlayerEntity player)
+FirstPersonCamera -> PlayerEntity
+
+Class GunHandler
+GunHandler : KeyCode activeGunId
+GunHandler : void Update()
+PlayerEntity -* GunHandler
 
 Class GunInventory <<ScriptableObject>>
 GunInventory : Dictionary<KeyCode, GunBuilder> guns
 GunInventory : Dictionary<KeyCode, Gun> activeGuns
-GunInventory : KeyCode activeGunId
+GunInventory : SwitchTo(KeyCode key)
 GunInventory --* GunBuilder
 
 Class GunBuilder <<ScriptableObject>>
 GunBuilder : float fireRate
 GunBuilder : float reloadTime
+GunBuilder : float baseDamage
 GunBuilder : IShootStrategy shootStrategy
 GunBuilder : Gun Build()
 GunBuilder --* IShootStrategy
@@ -44,6 +55,9 @@ Gun : bool canShoot
 Gun : Timer fireRateTimer
 Gun : Timer reloadTimer
 Gun : IShootStrategy shootStrategy
+Gun : Equip()
+Gun : UnEquip()
+Gun : TryShoot()
 Gun --* IShootStrategy
 
 Interface IShootStrategy
@@ -66,22 +80,25 @@ ShootData : Vector3 origin
 ShootData : Vector3 direction
 ShootData : Vector3 force
 ShootData : float spread
+ShootData : float baseDamage
 ShootData : float maxDistance
 
 Class ProjectileBuilder <<ScriptableObject>>
 ProjectileBuilder : GameObject baseProjectilePrefab
 ProjectileBuilder : Projectile BuildProjectile()
-ProjectileBuilder --> Projectile
+ProjectileBuilder --> ProjectileEntity
 
-Class Projectile
-Projectile : List<DamageTypeDecorator> damageTypes
-Projectile : GameObject body
-Projectile --* DamageTypeDecorator
-Projectile ..|> IDamager
+Class ProjectileEntity
+ProjectileEntity : List<DamageTypeDecorator> damageTypes
+ProjectileEntity : GameObject body
+ProjectileEntity : OnCollision()
+ProjectileEntity --* DamageTypeDecorator
+ProjectileEntity ..|> IDamager
+ProjectileEntity ..|> IEntity
 
 Class DamageTypeDecorator
 DamageTypeDecorator : DamageType affinity
-DamageTypeDecorator : float CalculateDamage(IDamagable other)
+DamageTypeDecorator : float CalculateDamage(IDamagable other, float damage)
 DamageType <-- DamageTypeDecorator
 DamageTypeDecorator -> IDamagable
 
@@ -119,14 +136,18 @@ LevelData --> Game : dependent through singleton, used for level loading
 
 Class LevelDataEntity <<ScriptableObject>>
 LevelDataEntity : Vector3 position
+LevelDataEntity : void Load()
+
+Class EnemyData <<ScriptableObject>>
+LevelDataEntity <|-- EnemyData 
 
 Class DoorData <<ScriptableObject>>
-DoorData : LevelDataEntity KeyData
+DoorData : Vector3 keyPosition
 LevelDataEntity <|-- DoorData 
-DoorData --* LevelDataEntity
 
 Class EntityManager
 EntityManager : ObjectPool<IEntity> entities
+EntityManager : Update()
 EntityManager --> ObjectPool
 EntityManager --* IEntity
 note left of EntityManager : Entities are enemies and Npc's,\nmoving living things that shouldnt move when-\nthe PlayerData isnt there.
