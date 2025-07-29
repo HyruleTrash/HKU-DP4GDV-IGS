@@ -1,20 +1,24 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "FirstPersonMovement", menuName = "FPS/FirstPersonMovement")]
 public class FirstPersonMovement : ScriptableObject
 {
-    [SerializeField] 
-    private float moveSpeed = 2f;
-    [SerializeField] 
-    private float maxMoveSpeed = 7f;
-    [SerializeField] 
-    private float groundDrag = 5f;
+    [Header("Input")]
+    [SerializeField] private InputActionReference moveAction;
+    [Header("Physics")]
+    [SerializeField] private float mass = 2f;
+    [SerializeField] private float groundDrag = 5f;
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float maxMoveSpeed = 7f;
 
     private Rigidbody rb;
     
     public void Load(GameObject playerEntityBody)
     {
         rb = playerEntityBody.AddComponent<Rigidbody>();
+        rb.mass = mass;
         rb.freezeRotation = true;
         rb.linearDamping = groundDrag;
     }
@@ -37,10 +41,8 @@ public class FirstPersonMovement : ScriptableObject
     
     private void HandleInput(Transform playerTransform)
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal"); // TODO: convert to new input system
-        float verticalInput = Input.GetAxisRaw("Vertical");
-
-        Vector3 movementDirection = playerTransform.right * horizontalInput + playerTransform.forward * verticalInput;
+        Vector2 input = moveAction.action.ReadValue<Vector2>();
+        Vector3 movementDirection = playerTransform.right * input.x + playerTransform.forward * input.y;
         
         rb.AddForce(movementDirection.normalized * moveSpeed, ForceMode.Force);
     }

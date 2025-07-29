@@ -5,12 +5,21 @@ public class EntityManager
 {
     public ObjectPool<IEntity> entityPool = new ObjectPool<IEntity>();
     
-    public void Update()
+    public void CustomUpdate()
     {
         IEntity[] entities = entityPool.GetActiveObjects();
         foreach (var entity in entities)
         {
             entity.CustomUpdate();
+        }
+    }
+
+    public void CustomUpdateAtFixedRate()
+    {
+        IEntity[] entities = entityPool.GetActiveObjects();
+        foreach (var entity in entities)
+        {
+            entity.CustomUpdateAtFixedRate();
         }
     }
 }

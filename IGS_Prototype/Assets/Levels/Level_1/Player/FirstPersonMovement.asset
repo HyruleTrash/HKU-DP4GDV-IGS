@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6373c65b451bfec42a300848ca2c2f8f, type: 3}
   m_Name: FirstPersonMovement
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  maxMoveSpeed: 7
+  moveSpeed: 100
+  maxMoveSpeed: 200
   groundDrag: 5
+  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}

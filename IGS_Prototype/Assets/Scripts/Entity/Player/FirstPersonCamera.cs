@@ -1,20 +1,19 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "FirstPersonCamera", menuName = "FPS/FirstPersonCamera")]
 public class FirstPersonCamera : ScriptableObject
 {
     [SerializeField] private GameObject cameraPrefab;
-    private Camera camera;
-    
-    // Sensitivity settings
+    [SerializeField] private InputActionReference lookAction;
     [SerializeField] private float mouseSensitivity = 100f;
     
     // Rotation limits
     [SerializeField] private float minVerticalAngle = -90f;
     [SerializeField] private float maxVerticalAngle = 90f;
     
-    // Private variables for tracking rotation
     private Vector2 rotation;
+    private Camera camera;
     
     public bool Active
     {
@@ -43,7 +42,7 @@ public class FirstPersonCamera : ScriptableObject
 
     public void Load(GameObject playerEntityBody)
     {
-        camera = Instantiate(cameraPrefab, playerEntityBody.transform, true).GetComponent<Camera>();
+        camera = Instantiate(cameraPrefab, playerEntityBody.transform).GetComponent<Camera>();
 
         if (camera != null)
         {
@@ -63,10 +62,11 @@ public class FirstPersonCamera : ScriptableObject
 
     private void HandleMouseInput()
     {
+        Vector2 input = lookAction.action.ReadValue<Vector2>();
         Vector2 mouse = Vector2.zero;
-        mouse.x = Input.GetAxisRaw("Mouse X") * Time.deltaTime * mouseSensitivity; // TODO: convert to new input system
-        mouse.y = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * mouseSensitivity;
-
+        mouse.x = input.x * Time.deltaTime * mouseSensitivity;
+        mouse.y = input.y * Time.deltaTime * mouseSensitivity;
+        
         rotation.y += mouse.x;
         rotation.x -= mouse.y; 
         

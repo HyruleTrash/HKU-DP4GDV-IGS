@@ -21,7 +21,12 @@ public class Game : SingletonBehaviour<Game>
 
     private void Update()
     {
-        entityManager.Update();
+        entityManager.CustomUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        entityManager.CustomUpdateAtFixedRate();
     }
 
     public EntityManager GetEntityManager()

@@ -2,7 +2,8 @@ using UnityEngine;
 
 public abstract class LevelDataEntity : ScriptableObject
 {
-    protected Vector3 position;
+    [Header("Entity Data")]
+    [SerializeField] protected Vector3 position;
 
     public abstract void Load();
 }
