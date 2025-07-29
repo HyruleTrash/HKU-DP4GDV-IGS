@@ -4,6 +4,7 @@ public class PlayerEntity : IEntity
 {
     private PlayerData playerData;
     public GameObject body;
+    public GunHandler gunHandler;
     public bool active { get; set; }
 
     public PlayerEntity(PlayerData playerData)
