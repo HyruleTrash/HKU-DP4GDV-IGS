@@ -17,6 +17,7 @@ public class Game : SingletonBehaviour<Game>
     private void Start()
     {
         entityManager = new EntityManager();
+        levelManager.currentLevel = 0; //TODO: make this a feature later
     }
 
     private void Update()
@@ -32,5 +33,11 @@ public class Game : SingletonBehaviour<Game>
     public EntityManager GetEntityManager()
     {
         return entityManager;
+    }
+
+    public void NextLevel()
+    {
+        entityManager.DeactivateAllEntities();
+        levelManager.AdvanceLevel();
     }
 }

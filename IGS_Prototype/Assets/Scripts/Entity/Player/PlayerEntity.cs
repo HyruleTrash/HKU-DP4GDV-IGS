@@ -13,12 +13,14 @@ public class PlayerEntity : IEntity
     
     public void OnEnableObject()
     {
+        body.SetActive(true);
         playerData.camera.Active = true;
         playerData.movementController.Active = true;
     }
 
     public void OnDisableObject()
     {
+        body.SetActive(false);
         playerData.camera.Active = false;
         playerData.movementController.Active = false;
     }

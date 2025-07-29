@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d4c166f29c7282468764788432529fc, type: 3}
-  m_Name: LevelData
+  m_Script: {fileID: 11500000, guid: 9601e2a8f2234358ba6fc94315d9c2cc, type: 3}
+  m_Name: LevelEndData
   m_EditorClassIdentifier: 
-  entities:
-  - {fileID: 11400000, guid: 86c6bf369b658584f8fdbb6a7479679a, type: 2}
-  - {fileID: 11400000, guid: cafb3565805899a4888bba91b7772d2a, type: 2}
+  position: {x: 0, y: 0, z: 10}
+  bodyPrefab: {fileID: 5732800322963889949, guid: 64d927ac5782682478211825855b1321, type: 3}
+  triggerRadius: 1.5

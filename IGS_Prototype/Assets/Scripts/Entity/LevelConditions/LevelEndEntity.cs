@@ -1,0 +1,54 @@
+﻿using UnityEngine;
+
+public class LevelEndEntity : IEntity
+{
+    public GameObject body;
+    public LevelEndData data;
+    private EntityManager entityManagerReference;
+    public bool active { get; set; }
+
+    public LevelEndEntity(LevelEndData data)
+    {
+        this.data = data;
+        entityManagerReference = Game.instance.GetEntityManager();
+    }
+    
+    public void OnEnableObject()
+    {
+        Debug.Log($"OnEnableObject: {active}");
+        body.SetActive(true);
+    }
+
+    public void OnDisableObject()
+    {
+        body.SetActive(false);
+    }
+
+    public void DoDie()
+    {
+        entityManagerReference.entityPool.DeactivateObject(this);
+    }
+
+    public void CustomUpdate()
+    {
+        // throw new System.NotImplementedException();
+    }
+
+    public void CustomUpdateAtFixedRate()
+    {
+        Debug.Log(active);
+        if (!active)
+            return;
+        if (!entityManagerReference.entityPool.GetActiveObject(typeof(PlayerEntity), out var result))
+            return;
+        PlayerEntity player = (PlayerEntity)result;
+
+        float distance = Vector3.Distance(player.body.transform.position, body.transform.position);
+        Debug.Log(distance);
+        if (player.active && distance < data.triggerRadius)
+        {
+            Game.instance.NextLevel();
+            DoDie();
+        }
+    }
+}

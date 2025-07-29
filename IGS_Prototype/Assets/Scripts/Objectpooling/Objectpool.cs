@@ -25,10 +25,8 @@ namespace LucasCustomClasses
             item.active = true;
             item.OnEnableObject();
             
-            if (!activePool.Contains(item))
-                activePool.Add(item);
-            if (inactivePool.Contains(item))
-                inactivePool.Remove(item);
+            activePool.Add(item);
+            inactivePool.Remove(item);
         }
 
         public void DeactivateObject(T item)
@@ -36,27 +34,40 @@ namespace LucasCustomClasses
             item.active = false;
             item.OnDisableObject();
             
-            if (activePool.Contains(item))
-                activePool.Remove(item);
-            if (!inactivePool.Contains(item))
-                inactivePool.Add(item);
+            activePool.Remove(item);
+            inactivePool.Add(item);
         }
 
         public T[] GetActiveObjects()
         {
             return activePool.ToArray();
         }
+        
+        public T[] GetInActiveObjects()
+        {
+            return inactivePool.ToArray();
+        }
 
         public T[] GetActiveObjects(System.Type objectType)
+        {
+            return GetObjects(objectType, activePool, true);
+        }
+        
+        public T[] GetInActiveObjects(System.Type objectType)
+        {
+            return GetObjects(objectType, inactivePool, false);
+        }
+        
+        private T[] GetObjects(System.Type objectType, List<T> pool, bool desiredState)
         {
             if (activePool.Count <= 0)
                 return Array.Empty<T>();
             
             List<T> result = new List<T>();
-            for (int i = 0; i < activePool.Count; i++)
+            for (int i = 0; i < pool.Count; i++)
             {
-                if (activePool[i].active && activePool[i].GetType() == objectType)
-                    result.Add(activePool[i]);
+                if (pool[i].active == desiredState && pool[i].GetType() == objectType)
+                    result.Add(pool[i]);
             }
             
             return result.ToArray();
@@ -64,15 +75,25 @@ namespace LucasCustomClasses
         
         public bool GetActiveObject(System.Type objectType, out T result)
         {
+            return GetObject(objectType, out result, activePool, true);
+        }
+        
+        public bool GetInActiveObject(System.Type objectType, out T result)
+        {
+            return GetObject(objectType, out result, inactivePool, false);
+        }
+        
+        private static bool GetObject(System.Type objectType, out T result, List<T> pool, bool desiredState)
+        {
             result = default(T);
-            if (activePool.Count <= 0)
+            if (pool.Count <= 0)
                 return false;
             
-            for (int i = 0; i < activePool.Count; i++)
+            for (int i = 0; i < pool.Count; i++)
             {
-                if (activePool[i].active && activePool[i].GetType() == objectType)
+                if (pool[i].active == desiredState && pool[i].GetType() == objectType)
                 {
-                    result = activePool[i];
+                    result = pool[i];
                     return true;
                 }
             }

@@ -6,8 +6,8 @@ namespace LucasCustomClasses
     {
         public bool active { get; set; }
         
-        void OnEnableObject();
-        void OnDisableObject();
-        void DoDie();
+        public void OnEnableObject();
+        public void OnDisableObject();
+        public void DoDie();
     }
 }
