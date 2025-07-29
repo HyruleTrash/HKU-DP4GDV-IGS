@@ -35,5 +35,7 @@ public class EntityManager
         {
             entityPool.DeactivateObject(entity);
         }
+
+        Debug.Log("Deactivated all entities");
     }
 }

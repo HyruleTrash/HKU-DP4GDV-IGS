@@ -6,6 +6,7 @@ public class LevelEndEntity : IEntity
     public LevelEndData data;
     private EntityManager entityManagerReference;
     public bool active { get; set; }
+    private bool shouldTrigger;
 
     public LevelEndEntity(LevelEndData data)
     {
@@ -17,6 +18,7 @@ public class LevelEndEntity : IEntity
     {
         Debug.Log($"OnEnableObject: {active}");
         body.SetActive(true);
+        shouldTrigger = false;
     }
 
     public void OnDisableObject()
@@ -31,7 +33,10 @@ public class LevelEndEntity : IEntity
 
     public void CustomUpdate()
     {
-        // throw new System.NotImplementedException();
+        if (shouldTrigger)
+        {
+            Game.instance.NextLevel();
+        }
     }
 
     public void CustomUpdateAtFixedRate()
@@ -47,8 +52,7 @@ public class LevelEndEntity : IEntity
         Debug.Log(distance);
         if (player.active && distance < data.triggerRadius)
         {
-            Game.instance.NextLevel();
-            DoDie();
+            shouldTrigger = true;
         }
     }
 }

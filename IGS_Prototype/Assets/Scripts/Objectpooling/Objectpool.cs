@@ -22,20 +22,28 @@ namespace LucasCustomClasses
 
         public void ActivateObject(T item)
         {
-            item.active = true;
-            item.OnEnableObject();
+            if (inactivePool.Contains(item))
+            {
+                inactivePool.Remove(item);
+            }
             
+            item.active = true;
             activePool.Add(item);
-            inactivePool.Remove(item);
+            
+            item.OnEnableObject();
         }
 
         public void DeactivateObject(T item)
         {
-            item.active = false;
-            item.OnDisableObject();
+            if (activePool.Contains(item))
+            {
+                activePool.Remove(item);
+            }
             
-            activePool.Remove(item);
+            item.active = false;
             inactivePool.Add(item);
+            
+            item.OnDisableObject();
         }
 
         public T[] GetActiveObjects()

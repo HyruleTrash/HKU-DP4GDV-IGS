@@ -9,6 +9,7 @@ public class LevelManager : ScriptableObject
 
     public void LoadLevel(int level)
     {
+        Debug.Log("loading level");
         if (level > levels.Count || level < 0)
             return;
         levels[level].Load();
@@ -16,6 +17,7 @@ public class LevelManager : ScriptableObject
 
     public void AdvanceLevel()
     {
+        Debug.Log("Advancing level");
         currentLevel++;
         if (currentLevel >= levels.Count)
             currentLevel = 0;
