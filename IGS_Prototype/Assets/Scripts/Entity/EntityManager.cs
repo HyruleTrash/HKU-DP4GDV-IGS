@@ -21,11 +21,6 @@ public class EntityManager
         {
             entity.CustomUpdateAtFixedRate();
         }
-        IEntity[] entitiesTemp = entityPool.GetInActiveObjects();
-        foreach (var entity in entitiesTemp)
-        {
-            Debug.Log($"entity: {entity}, state: {entity.active}");
-        }
     }
 
     public void DeactivateAllEntities()
@@ -35,7 +30,5 @@ public class EntityManager
         {
             entityPool.DeactivateObject(entity);
         }
-
-        Debug.Log("Deactivated all entities");
     }
 }

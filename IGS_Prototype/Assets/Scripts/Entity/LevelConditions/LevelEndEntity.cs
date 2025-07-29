@@ -16,7 +16,6 @@ public class LevelEndEntity : IEntity
     
     public void OnEnableObject()
     {
-        Debug.Log($"OnEnableObject: {active}");
         body.SetActive(true);
         shouldTrigger = false;
     }
@@ -41,7 +40,6 @@ public class LevelEndEntity : IEntity
 
     public void CustomUpdateAtFixedRate()
     {
-        Debug.Log(active);
         if (!active)
             return;
         if (!entityManagerReference.entityPool.GetActiveObject(typeof(PlayerEntity), out var result))
@@ -49,7 +47,6 @@ public class LevelEndEntity : IEntity
         PlayerEntity player = (PlayerEntity)result;
 
         float distance = Vector3.Distance(player.body.transform.position, body.transform.position);
-        Debug.Log(distance);
         if (player.active && distance < data.triggerRadius)
         {
             shouldTrigger = true;
