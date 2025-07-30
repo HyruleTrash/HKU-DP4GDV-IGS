@@ -85,4 +85,9 @@ public class FirstPersonCamera : ScriptableObject
             0
         );
     }
+
+    public Transform GetTransform()
+    {
+        return camera?.transform;
+    }
 }

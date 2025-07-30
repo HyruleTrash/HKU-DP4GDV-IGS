@@ -32,7 +32,7 @@ public class PlayerData : LevelDataEntity
             movementController.Load(playerEntity.body);
             movementController.Active = true;
 
-            playerEntity.gunHandler = new GunHandler();
+            playerEntity.gunHandler = new GunHandler(playerEntity);
             gunInventory.Load(playerEntity.gunHandler);
             
             entityManagerReference.entityPool.AddToPool(playerEntity);

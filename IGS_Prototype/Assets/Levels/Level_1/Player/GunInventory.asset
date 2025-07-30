@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e44f2c13773a2749a5f7205a18f93d1, type: 3}
   m_Name: GunInventory
   m_EditorClassIdentifier: 
-  equipAction: {fileID: -8268357274351857669, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   shootAction: {fileID: 7478067814684077793, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  equipAction: {fileID: -8268357274351857669, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   reloadAction: {fileID: 5061693554522066509, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  guns: []
+  registeredGuns:
+  - {fileID: 11400000, guid: 87570151f6b34034288b6a9cc4f9ef9e, type: 2}

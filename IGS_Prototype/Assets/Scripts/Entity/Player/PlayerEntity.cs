@@ -35,10 +35,19 @@ public class PlayerEntity : IEntity
     public void CustomUpdate()
     {
         playerData.camera.CustomUpdate(body);
+        gunHandler.CustomUpdate();
     }
 
     public void CustomUpdateAtFixedRate()
     {
         playerData.movementController.CustomUpdateAtFixedRate(body);
+    }
+
+    public Vector3 GetBulletOrigin()
+    {
+        Transform transform = playerData.camera.GetTransform();
+        if (transform == null)
+            return Vector3.zero;
+        return transform.position + transform.forward;
     }
 }
