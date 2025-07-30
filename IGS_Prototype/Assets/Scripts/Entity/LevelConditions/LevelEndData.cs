@@ -7,8 +7,6 @@ public class LevelEndData : LevelDataEntity
     public float triggerRadius;
     public override void Load()
     {
-        // TODO: Make check for pre existing levelEnd
-        
         EntityManager entityManagerReference = Game.instance.GetEntityManager();
         LevelEndEntity levelEndEntity;
 

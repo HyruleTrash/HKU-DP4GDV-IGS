@@ -25,6 +25,7 @@ public class GunBuilder : ScriptableObject
         newGun.fireRateTimer = new Timer(fireRate);
         newGun.reloadTimer = new Timer(reloadTime);
         newGun.shootStrategy = (IShootStrategy)shootStrategy;
+        // TODO: make a use for this being a builder, such as adding randomness
         return newGun;
     }
 }

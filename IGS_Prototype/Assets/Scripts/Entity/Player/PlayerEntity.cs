@@ -48,6 +48,14 @@ public class PlayerEntity : IEntity
         Transform transform = playerData.camera.GetTransform();
         if (transform == null)
             return Vector3.zero;
-        return transform.position + transform.forward;
+        return transform.position + transform.forward + (-transform.up * 0.5f); // Used a magic number here, since this is supposedly temporary TODO: make this more elegant
+    }
+    
+    public Vector3 GetBulletDirection()
+    {
+        Transform transform = playerData.camera.GetTransform();
+        if (transform == null)
+            return Vector3.zero;
+        return transform.forward;
     }
 }

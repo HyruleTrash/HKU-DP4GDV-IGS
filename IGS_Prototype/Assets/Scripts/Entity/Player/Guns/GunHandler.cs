@@ -48,7 +48,7 @@ public class GunHandler
         
         ShootData shootData = new ShootData();
         shootData.origin = playerReference.GetBulletOrigin();
-        shootData.direction = playerReference.body.transform.forward;
+        shootData.direction = playerReference.GetBulletDirection();
         
         currentGun.TryShoot(shootData);
     }
