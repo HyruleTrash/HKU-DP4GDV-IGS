@@ -17,4 +17,4 @@ MonoBehaviour:
   baseDamage: 5
   ammoCapacity: 10
   shootStrategy: {fileID: 11400000, guid: 9b114a71182732d45ae2cbbd34acabbf, type: 2}
-  force: 200
+  force: 20

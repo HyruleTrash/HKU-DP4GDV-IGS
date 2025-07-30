@@ -74,7 +74,7 @@ namespace LucasCustomClasses
             List<T> result = new List<T>();
             for (int i = 0; i < pool.Count; i++)
             {
-                if (pool[i].Active == desiredState && pool[i].GetType() == objectType)
+                if (pool[i].Active == desiredState && objectType.IsInstanceOfType(pool[i]))
                     result.Add(pool[i]);
             }
             
@@ -99,7 +99,7 @@ namespace LucasCustomClasses
             
             for (int i = 0; i < pool.Count; i++)
             {
-                if (pool[i].Active == desiredState && pool[i].GetType() == objectType)
+                if (pool[i].Active == desiredState && objectType.IsInstanceOfType(pool[i]))
                 {
                     result = pool[i];
                     return true;
