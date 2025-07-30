@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   position: {x: -15, y: 0, z: 0}
   bodyPrefab: {fileID: 3126043481286526346, guid: a419be8157a18ed4fad9b2741f5d4fde, type: 3}
+  weaknesses: 02000000
+  affinities: 0300000001000000
+  healthData: {fileID: 11400000, guid: 8832b57f1205ad64eb393f93f9979d82, type: 2}

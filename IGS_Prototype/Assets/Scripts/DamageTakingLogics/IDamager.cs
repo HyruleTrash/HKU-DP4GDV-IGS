@@ -1,5 +1,5 @@
 ﻿
 public interface IDamager
 {
-    public float RetrieveDamage();
+    public float RetrieveDamage(IDamagable other);
 }

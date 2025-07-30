@@ -5,8 +5,9 @@ using UnityEngine;
 public class EnemyData : LevelDataEntity
 {
     [SerializeField] private GameObject bodyPrefab;
-    [SerializeField] private List<DamageType> Weaknesses { get; set; }
-    [SerializeField] private List<DamageType> Affinities { get; set; }
+    [SerializeField] private List<DamageType> weaknesses = new List<DamageType>();
+    [SerializeField] private List<DamageType> affinities = new List<DamageType>();
+    [SerializeField] private HealthData healthData;
     
     public override void Load()
     {
@@ -22,9 +23,11 @@ public class EnemyData : LevelDataEntity
         }
         else
         {
-            enemyEntity = new EnemyEntity();
+            enemyEntity = new EnemyEntity(healthData);
             enemyEntity.Active = true;
             enemyEntity.Body = Instantiate(bodyPrefab, position, Quaternion.identity);
+            enemyEntity.Weaknesses = weaknesses;
+            enemyEntity.Affinities = affinities;
             
             Game.instance.GetEntityManager().entityPool.AddToPool(enemyEntity);
         }

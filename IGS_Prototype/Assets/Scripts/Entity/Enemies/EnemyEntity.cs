@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyEntity : IEntity, IDamagable
@@ -6,7 +7,15 @@ public class EnemyEntity : IEntity, IDamagable
     public GameObject Body { get; set; }
     public List<DamageType> Weaknesses { get; set; }
     public List<DamageType> Affinities { get; set; }
+    public Action OnDamaged { get; set; }
     public bool Active { get; set; }
+    private HealthSystem healthSystem;
+
+    public EnemyEntity(HealthData healthData)
+    {
+        healthSystem = new HealthSystem(healthData);
+        healthSystem.onHealthDrained = DoDie;
+    }
     
     public void OnEnableObject()
     {
@@ -20,7 +29,7 @@ public class EnemyEntity : IEntity, IDamagable
 
     public void DoDie()
     {
-        throw new System.NotImplementedException();
+        Game.instance.GetEntityManager().entityPool.DeactivateObject(this);
     }
 
     public void CustomUpdate()
@@ -35,6 +44,7 @@ public class EnemyEntity : IEntity, IDamagable
 
     public void TakeDamage(IDamager other)
     {
-        throw new System.NotImplementedException();
+        OnDamaged?.Invoke();
+        healthSystem.TakeDamage(other.RetrieveDamage(this));
     }
 }
