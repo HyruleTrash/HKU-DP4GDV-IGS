@@ -1,55 +1,32 @@
 ﻿using UnityEngine;
 
-public class LevelEndEntity : IEntity
+public class LevelEndEntity : TriggerEntity
 {
-    public GameObject body;
     public LevelEndData data;
     private EntityManager entityManagerReference;
-    public bool active { get; set; }
-    private bool shouldTrigger;
 
     public LevelEndEntity(LevelEndData data)
     {
         this.data = data;
         entityManagerReference = Game.instance.GetEntityManager();
+        onTrigger = OnTrigger;
+        layerMasks = new[] { typeof(PlayerEntity) };
+        triggerRadius = data.triggerRadius;
     }
     
-    public void OnEnableObject()
+    public override void OnEnableObject()
     {
-        body.SetActive(true);
-        shouldTrigger = false;
+        Body.SetActive(true);
     }
 
-    public void OnDisableObject()
+    public override void OnDisableObject()
     {
-        body.SetActive(false);
+        Body.SetActive(false);
     }
 
-    public void DoDie()
+    private void OnTrigger(IEntity other)
     {
-        entityManagerReference.entityPool.DeactivateObject(this);
-    }
-
-    public void CustomUpdate()
-    {
-        if (shouldTrigger)
-        {
+        if (other is PlayerEntity player)
             Game.instance.NextLevel();
-        }
-    }
-
-    public void CustomUpdateAtFixedRate()
-    {
-        if (!active)
-            return;
-        if (!entityManagerReference.entityPool.GetActiveObject(typeof(PlayerEntity), out var result))
-            return;
-        PlayerEntity player = (PlayerEntity)result;
-
-        float distance = Vector3.Distance(player.body.transform.position, body.transform.position);
-        if (player.active && distance < data.triggerRadius)
-        {
-            shouldTrigger = true;
-        }
     }
 }

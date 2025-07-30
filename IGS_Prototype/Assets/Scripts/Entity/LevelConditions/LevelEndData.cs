@@ -13,15 +13,15 @@ public class LevelEndData : LevelDataEntity
         if (entityManagerReference.entityPool.GetInActiveObject(typeof(LevelEndEntity), out var result))
         {
             levelEndEntity = (LevelEndEntity)result;
-            levelEndEntity.body.transform.position = position;
+            levelEndEntity.Body.transform.position = position;
             levelEndEntity.data = this;
             entityManagerReference.entityPool.ActivateObject(levelEndEntity);
         }
         else
         {
             levelEndEntity = new LevelEndEntity(this);
-            levelEndEntity.active = true;
-            levelEndEntity.body = Instantiate(bodyPrefab, position, Quaternion.identity);
+            levelEndEntity.Active = true;
+            levelEndEntity.Body = Instantiate(bodyPrefab, position, Quaternion.identity);
             
             Game.instance.GetEntityManager().entityPool.AddToPool(levelEndEntity);
         }

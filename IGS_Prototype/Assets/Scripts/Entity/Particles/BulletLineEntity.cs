@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class BulletLineEntity : IEntity
 {
-    private GameObject body;
+    public GameObject Body {get; set;}
     private LineRenderer lineRenderer;
     private Material material;
-    public bool active { get; set; }
+    public bool Active { get; set; }
 
     public BulletLineEntity(Material material)
     {
@@ -16,7 +16,7 @@ public class BulletLineEntity : IEntity
     public void OnEnableObject()
     {
         InitializeComponents();
-        body.SetActive(true);
+        Body.SetActive(true);
         
         Color startColor = Color.white;
         lineRenderer.startColor = startColor;
@@ -25,17 +25,17 @@ public class BulletLineEntity : IEntity
 
     public void OnDisableObject()
     {
-        body.SetActive(false);
+        Body.SetActive(false);
         lineRenderer.SetPositions(Array.Empty<Vector3>());
     }
 
     private void InitializeComponents()
     {
-        if (body == null)
-            body = new GameObject("BulletLine");
+        if (Body == null)
+            Body = new GameObject("BulletLine");
         if (lineRenderer == null)
         {
-            lineRenderer = body.AddComponent<LineRenderer>();
+            lineRenderer = Body.AddComponent<LineRenderer>();
             lineRenderer.material = new Material(material);
             lineRenderer.SetPositions(Array.Empty<Vector3>());
             lineRenderer.startWidth = lineRenderer.endWidth = 0.01f;

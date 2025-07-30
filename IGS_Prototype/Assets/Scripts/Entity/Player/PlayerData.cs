@@ -17,19 +17,19 @@ public class PlayerData : LevelDataEntity
         if (entityManagerReference.entityPool.GetInActiveObject(typeof(PlayerEntity), out var result))
         {
             playerEntity = (PlayerEntity)result;
-            playerEntity.body.transform.position = position;
+            playerEntity.Body.transform.position = position;
             entityManagerReference.entityPool.ActivateObject(playerEntity);
         }
         else
         {
             playerEntity = new PlayerEntity(this);
-            playerEntity.active = true;
-            playerEntity.body = Instantiate(bodyPrefab, position, Quaternion.identity);
+            playerEntity.Active = true;
+            playerEntity.Body = Instantiate(bodyPrefab, position, Quaternion.identity);
 
-            camera.Load(playerEntity.body);
+            camera.Load(playerEntity.Body);
             camera.Active = true;
             
-            movementController.Load(playerEntity.body);
+            movementController.Load(playerEntity.Body);
             movementController.Active = true;
 
             playerEntity.gunHandler = new GunHandler(playerEntity);

@@ -10,6 +10,8 @@ public class GunBuilder : ScriptableObject
     [SerializeField] private float baseDamage;
     [SerializeField] private int ammoCapacity;
     [SerializeField] private ScriptableObject shootStrategy;
+    [Header("For projectile based guns")]
+    [SerializeField] private float force = 0;
 
     private void OnValidate()
     {
@@ -21,7 +23,7 @@ public class GunBuilder : ScriptableObject
 
     public Gun Build()
     {
-        Gun newGun = new Gun(ammoCapacity, baseDamage);
+        Gun newGun = new Gun(ammoCapacity, baseDamage, force);
         newGun.fireRateTimer = new Timer(fireRate);
         newGun.reloadTimer = new Timer(reloadTime);
         newGun.shootStrategy = (IShootStrategy)shootStrategy;

@@ -4,7 +4,7 @@ namespace LucasCustomClasses
 {
     public interface IPoolable
     {
-        public bool active { get; set; }
+        public bool Active { get; set; }
         
         public void OnEnableObject();
         public void OnDisableObject();

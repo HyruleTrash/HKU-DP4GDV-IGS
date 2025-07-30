@@ -14,7 +14,7 @@ namespace LucasCustomClasses
         {
             if (activePool.Contains(item) || inactivePool.Contains(item))
                 return;
-            if (item.active)
+            if (item.Active)
                 activePool.Add(item);
             else
                 inactivePool.Add(item);
@@ -27,7 +27,7 @@ namespace LucasCustomClasses
                 inactivePool.Remove(item);
             }
             
-            item.active = true;
+            item.Active = true;
             activePool.Add(item);
             
             item.OnEnableObject();
@@ -40,7 +40,7 @@ namespace LucasCustomClasses
                 activePool.Remove(item);
             }
             
-            item.active = false;
+            item.Active = false;
             inactivePool.Add(item);
             
             item.OnDisableObject();
@@ -74,7 +74,7 @@ namespace LucasCustomClasses
             List<T> result = new List<T>();
             for (int i = 0; i < pool.Count; i++)
             {
-                if (pool[i].active == desiredState && pool[i].GetType() == objectType)
+                if (pool[i].Active == desiredState && pool[i].GetType() == objectType)
                     result.Add(pool[i]);
             }
             
@@ -99,7 +99,7 @@ namespace LucasCustomClasses
             
             for (int i = 0; i < pool.Count; i++)
             {
-                if (pool[i].active == desiredState && pool[i].GetType() == objectType)
+                if (pool[i].Active == desiredState && pool[i].GetType() == objectType)
                 {
                     result = pool[i];
                     return true;

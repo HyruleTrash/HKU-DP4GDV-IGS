@@ -2,10 +2,10 @@
 
 public class PlayerEntity : IEntity
 {
+    public GameObject Body {get; set;}
     private PlayerData playerData;
-    public GameObject body;
     public GunHandler gunHandler;
-    public bool active { get; set; }
+    public bool Active { get; set; }
 
     public PlayerEntity(PlayerData playerData)
     {
@@ -14,14 +14,14 @@ public class PlayerEntity : IEntity
     
     public void OnEnableObject()
     {
-        body.SetActive(true);
+        Body.SetActive(true);
         playerData.camera.Active = true;
         playerData.movementController.Active = true;
     }
 
     public void OnDisableObject()
     {
-        body.SetActive(false);
+        Body.SetActive(false);
         playerData.camera.Active = false;
         playerData.movementController.Active = false;
     }
@@ -34,13 +34,13 @@ public class PlayerEntity : IEntity
 
     public void CustomUpdate()
     {
-        playerData.camera.CustomUpdate(body);
+        playerData.camera.CustomUpdate(Body);
         gunHandler.CustomUpdate();
     }
 
     public void CustomUpdateAtFixedRate()
     {
-        playerData.movementController.CustomUpdateAtFixedRate(body);
+        playerData.movementController.CustomUpdateAtFixedRate(Body);
     }
 
     public Vector3 GetBulletOrigin()

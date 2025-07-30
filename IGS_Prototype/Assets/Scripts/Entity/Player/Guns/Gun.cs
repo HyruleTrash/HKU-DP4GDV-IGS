@@ -10,11 +10,13 @@ public class Gun
     private int ammoCapacity;
     private int currentAmmo = 0;
     private float baseDamage;
+    private float force;
 
-    public Gun(int ammoCapacity, float baseDamage)
+    public Gun(int ammoCapacity, float baseDamage, float force)
     {
         this.ammoCapacity = ammoCapacity;
         this.baseDamage = baseDamage;
+        this.force = force;
     }
 
     public void Equip()
@@ -49,12 +51,13 @@ public class Gun
 
     public void TryShoot(ShootData shootData)
     {
-        if (currentAmmo <= 0)
+        if (currentAmmo <= 0 && !reloadTimer.running)
             TriggerReload();
         if (!canShoot)
             return;
         
         shootData.baseDamage = baseDamage;
+        shootData.force = force;
         shootStrategy.Shoot(shootData);
         
         currentAmmo--;

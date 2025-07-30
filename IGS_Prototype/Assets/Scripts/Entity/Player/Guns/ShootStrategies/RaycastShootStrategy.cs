@@ -21,7 +21,7 @@ public class RaycastShootStrategy : ScriptableObject, IShootStrategy
         else
         {
             bulletLineEntity = new BulletLineEntity(BulletPathMaterial);
-            bulletLineEntity.active = true;
+            bulletLineEntity.Active = true;
             Game.instance.GetEntityManager().entityPool.AddToPool(bulletLineEntity);
         }
 

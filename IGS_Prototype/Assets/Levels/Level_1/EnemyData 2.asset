@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d644668bfd7545aa952546df89d787ad, type: 3}
-  m_Name: GunBuilderOne
+  m_Script: {fileID: 11500000, guid: 886e1f8f3f0942969d6ffd4ba3c74770, type: 3}
+  m_Name: EnemyData 2
   m_EditorClassIdentifier: 
-  fireRate: 0.1
-  reloadTime: 0.1
-  baseDamage: 2
-  ammoCapacity: 10
-  shootStrategy: {fileID: 11400000, guid: f4e08cf6803ed6842aeb156e9e0c8729, type: 2}
+  position: {x: -10, y: 0, z: 0}
+  bodyPrefab: {fileID: 3126043481286526346, guid: a419be8157a18ed4fad9b2741f5d4fde, type: 3}
