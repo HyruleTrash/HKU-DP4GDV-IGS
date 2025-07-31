@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "EntityData/PlayerData")]
@@ -22,10 +23,13 @@ public class PlayerData : LevelDataEntity
         }
         else
         {
+            if (!camera || !movementController || !gunInventory || !bodyPrefab)
+                throw new WarningException("The player in this level is missing data and cannot be loaded");
+            
             playerEntity = new PlayerEntity(this);
             playerEntity.Active = true;
             playerEntity.Body = Instantiate(bodyPrefab, position, Quaternion.identity);
-
+            
             camera.Load(playerEntity.Body);
             camera.Active = true;
             

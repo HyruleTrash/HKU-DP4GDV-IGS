@@ -12,7 +12,20 @@ public class GunInventory : ScriptableObject
     [SerializeField] private InputActionReference equipAction;
     [SerializeField] private InputActionReference reloadAction;
     [Header("Guns")]
-    [SerializeField] private List<GunBuilder> registeredGuns = new();
+    [SerializeField] private List<int> registeredGuns = new();
+
+    private void OnValidate()
+    {
+        int lookupCount = GunLookup.instance.GetCount();
+        List<int> newRegisteredGuns = new();
+        foreach (var id in registeredGuns)
+        {
+            if (id >= lookupCount || id < 0)
+                continue;
+            newRegisteredGuns.Add(id);
+        }
+        registeredGuns = newRegisteredGuns;
+    }
 
     public void Load(GunHandler gunHandler)
     {
@@ -20,10 +33,9 @@ public class GunInventory : ScriptableObject
         equipAction.action.performed += ctx => gunHandler.EquipNext();
         reloadAction.action.performed += ctx => gunHandler.Reload();
         
-        // TODO: port this to a triggerEntity item pickup
-        foreach (var builder in registeredGuns)
+        foreach (var id in registeredGuns)
         {
-            gunHandler.AddGun(builder.Build());
+            gunHandler.AddGun(GunLookup.instance.GetBuilder(id).Build());
         }
     }
 }
