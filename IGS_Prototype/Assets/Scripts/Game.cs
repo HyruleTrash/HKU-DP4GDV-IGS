@@ -42,6 +42,7 @@ public class Game : SingletonBehaviour<Game>
         menu.SetActive(false);
         gameInterface.SetActive(true);
         levelManager.LoadLevel(levelManager.currentLevel);
+        PlayerInterfaceConsole.Instance.Setup();
     }
 
     public void OpenMenu()

@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ca4c5c043ce4da47950aa12ddd9d9e5, type: 2}
   - {fileID: 11400000, guid: 5a6e88cfbab804c4c990944661f1d0c2, type: 2}
   - {fileID: 11400000, guid: e20600caba72dbb44b71403695e43b9e, type: 2}
+  hitInvinsibilityTime: 0.1

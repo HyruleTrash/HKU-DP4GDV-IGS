@@ -9,6 +9,7 @@ public class EnemyData : LevelDataEntity
     [SerializeField] private List<DamageType> affinities = new List<DamageType>();
     [SerializeField] private HealthData healthData;
     [SerializeField] private List<HurtTriggerData> hurtTriggerDatas = new List<HurtTriggerData>();
+    [SerializeField] private float hitInvinsibilityTime;
     
     public override IEntity Load()
     {
@@ -24,7 +25,7 @@ public class EnemyData : LevelDataEntity
         }
         else
         {
-            enemyEntity = new EnemyEntity(healthData);
+            enemyEntity = new EnemyEntity(healthData, hitInvinsibilityTime);
             enemyEntity.Active = true;
             enemyEntity.Body = Instantiate(bodyPrefab, position, Quaternion.identity);
             
