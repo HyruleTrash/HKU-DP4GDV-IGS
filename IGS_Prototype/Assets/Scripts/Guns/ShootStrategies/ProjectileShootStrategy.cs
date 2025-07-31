@@ -4,6 +4,7 @@ using UnityEngine;
 public class ProjectileShootStrategy : ScriptableObject, IShootStrategy
 {
     [SerializeField] private ProjectileBuilder builder;
+    [SerializeField] private float movementDirectionWeight = 1;
     
     public void Shoot(ShootData data)
     {
@@ -20,7 +21,22 @@ public class ProjectileShootStrategy : ScriptableObject, IShootStrategy
         }
         
         projectileEntity.Body.transform.position = data.origin;
-        projectileEntity.rb.AddForce(data.direction * data.force, ForceMode.Impulse); // TODO: add player current velocity to this
+
+        AddShooterVelocity(data, projectileEntity, out Vector3 movementDirection);
+        
+        projectileEntity.rb.AddForce((data.direction + movementDirection * movementDirectionWeight) * data.force, ForceMode.Impulse);
         projectileEntity.baseDamage = data.baseDamage;
+    }
+
+    private void AddShooterVelocity(ShootData data, ProjectileEntity projectileEntity, out Vector3 movementDirection)
+    {
+        movementDirection = Vector3.zero;
+        if (data.shooter == null || data.shooter.Body == null) return;
+        
+        Rigidbody shooterRigidbody = data.shooter.Body.GetComponent<Rigidbody>();
+        if (!shooterRigidbody) return;
+        
+        projectileEntity.rb.linearVelocity = shooterRigidbody.linearVelocity;
+        movementDirection = shooterRigidbody.linearVelocity.normalized;
     }
 }
