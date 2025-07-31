@@ -9,9 +9,9 @@ public class RaycastShootStrategy : ScriptableObject, IShootStrategy
     {
         private readonly float damage;
         public RaycastDamageHolder(float damage) => this.damage = damage;
-        public float RetrieveDamage(IDamagable other)
+        public DamageData RetrieveDamage(IDamagable other)
         {
-            return damage;
+            return new DamageData(damage);
         }
     }
     

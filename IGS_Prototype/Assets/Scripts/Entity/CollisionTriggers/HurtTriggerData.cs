@@ -9,15 +9,15 @@ public class HurtTriggerData : LevelDataEntity
     private Transform parent;
     [SerializeField] private List<DamageType> weaknesses = new List<DamageType>();
     [SerializeField] private List<DamageType> affinities = new List<DamageType>();
-    [SerializeField] private UnityEvent<float> onDamaged;
+    [SerializeField] private UnityEvent<DamageData> onDamaged;
     [SerializeField] public float triggerRadius;
     
     public override IEntity Load()
     {
-        return Load(parent, damage => { onDamaged.Invoke(damage); }, weaknesses, affinities);
+        return Load(parent, damageData => { onDamaged.Invoke(damageData); }, weaknesses, affinities);
     }
 
-    public IEntity Load(Transform parent, Action<float> onDamaged, List<DamageType> weaknesses, List<DamageType> affinities)
+    public IEntity Load(Transform parent, Action<DamageData> onDamaged, List<DamageType> weaknesses, List<DamageType> affinities)
     {
         EntityManager entityManagerReference = Game.instance.GetEntityManager();
         HurtTriggerEntity hurtTriggerEntity;
@@ -27,18 +27,14 @@ public class HurtTriggerData : LevelDataEntity
             hurtTriggerEntity = (HurtTriggerEntity)result;
             hurtTriggerEntity.Body.transform.parent = parent;
             hurtTriggerEntity.Body.transform.localPosition = position;
-            hurtTriggerEntity.Initialize(
-                damage => { onDamaged.Invoke(damage); }
-                ,weaknesses, affinities, triggerRadius);
+            hurtTriggerEntity.Initialize(onDamaged.Invoke,weaknesses, affinities, triggerRadius);
             
             entityManagerReference.entityPool.ActivateObject(hurtTriggerEntity);
         }
         else
         {
             hurtTriggerEntity = new HurtTriggerEntity();
-            hurtTriggerEntity.Initialize(
-                damage => { onDamaged.Invoke(damage); }
-                ,weaknesses, affinities, triggerRadius);
+            hurtTriggerEntity.Initialize(onDamaged.Invoke,weaknesses, affinities, triggerRadius);
             
             hurtTriggerEntity.Body = new GameObject("HurtTriggerEntity")
             {

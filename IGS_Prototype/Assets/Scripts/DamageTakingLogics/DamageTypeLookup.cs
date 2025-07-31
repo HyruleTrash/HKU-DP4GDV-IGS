@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class DamageTypeLookup
 {
@@ -14,7 +15,7 @@ public class DamageTypeLookup
         }
     };
     
-    public static Dictionary<DamageType, DamageTypeRecord[]> affinityTable = new Dictionary<DamageType, DamageTypeRecord[]>()
+    public static Dictionary<DamageType, DamageTypeRecord[]> affinityTable = new ()
     {
         { DamageType.Dark, new []
             {
@@ -42,7 +43,7 @@ public class DamageTypeLookup
         }
     };
     
-    public static Dictionary<DamageType, DamageTypeRecord[]> weaknessTable = new Dictionary<DamageType, DamageTypeRecord[]>()
+    public static Dictionary<DamageType, DamageTypeRecord[]> weaknessTable = new ()
     {
         { DamageType.Dark, new []
             {
@@ -67,5 +68,13 @@ public class DamageTypeLookup
                 new DamageTypeRecord(DamageType.Holy, 0.7f),
             }
         },
+    };
+
+    public static Dictionary<DamageType, Color> colorTable = new ()
+    {
+        { DamageType.Dark, new Color(0.2f, 0f, 0.2f) },
+        { DamageType.Holy, new Color(0.9f, 0.9f, 0.6f) },
+        { DamageType.Fire, new Color(0.9f, 0.6f, 0.2f) },
+        { DamageType.Frost, new Color(0.5f, 0.6f, 0.9f) },
     };
 }

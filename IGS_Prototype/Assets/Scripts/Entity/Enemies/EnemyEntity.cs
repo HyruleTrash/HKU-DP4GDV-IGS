@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using LucasCustomClasses;
 using UnityEngine;
 
@@ -10,15 +9,15 @@ public class EnemyEntity : IEntity
     private HealthSystem healthSystem;
     public HurtTriggerEntity[] hurtTriggers;
     private EntityManager entityManagerReference;
-    private Timer invisibilityTimer;
-    private bool invisibility;
+    private Timer invincibilityTimer;
+    private bool invincibility;
 
-    public EnemyEntity(HealthData healthData, float hitInvinsibilityTime)
+    public EnemyEntity(HealthData healthData, float hitInvincibilityTime)
     {
         healthSystem = new HealthSystem(healthData);
         healthSystem.onHealthDrained = DoDie;
         entityManagerReference = Game.instance.GetEntityManager();
-        invisibilityTimer = new Timer(hitInvinsibilityTime, () => invisibility = false);
+        invincibilityTimer = new Timer(hitInvincibilityTime, () => invincibility = false);
     }
     
     public void OnEnableObject()
@@ -43,18 +42,18 @@ public class EnemyEntity : IEntity
 
     public void CustomUpdate()
     {
-        invisibilityTimer.Update(Time.deltaTime);
+        invincibilityTimer.Update(Time.deltaTime);
     }
     
     public void CustomUpdateAtFixedRate() { }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(DamageData damageData)
     {
-        if (invisibility)
+        if (invincibility)
             return;
-        PlayerInterfaceConsole.Instance.AddToConsole($"{this.GetType()}{Body.GetInstanceID()}: Took <color=red>{damage}</color> damage");
-        healthSystem.TakeDamage(damage);
-        invisibility = true;
-        invisibilityTimer.Reset();
+        PlayerInterfaceConsole.Instance.AddToConsole($"{damageData.damageText}\n{this.GetType()}{Body.GetInstanceID()}: Took <color=red>{damageData.damage}</color> damage");
+        healthSystem.TakeDamage(damageData.damage);
+        invincibility = true;
+        invincibilityTimer.Reset();
     }
 }

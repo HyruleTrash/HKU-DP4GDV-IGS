@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ProjectileEntity : TriggerEntity, IDamager
@@ -7,6 +8,7 @@ public class ProjectileEntity : TriggerEntity, IDamager
     private List<DamageTypeDecorator> damageTypes = new ();
     public Rigidbody rb;
     public float baseDamage;
+    private StringBuilder decoratorAffinitiesAsStrings;
     
     public override void OnEnableObject()
     {
@@ -14,6 +16,10 @@ public class ProjectileEntity : TriggerEntity, IDamager
         Body.SetActive(true);
         layerMasks = new[] { typeof(IDamagable) };
         onTrigger = OnTrigger;
+        
+        decoratorAffinitiesAsStrings = new();
+        foreach (DamageTypeDecorator decorator in damageTypes)
+            decoratorAffinitiesAsStrings.Append($"<color={DamageTypeLookup.colorTable[decorator.affinity].ToHex()}>{decorator.affinity.ToString()}</color> ");
     }
 
     private void OnTrigger(IEntity other)
@@ -50,16 +56,21 @@ public class ProjectileEntity : TriggerEntity, IDamager
         damageTypes.Clear();
     }
 
-    public float RetrieveDamage(IDamagable other)
+    public DamageData RetrieveDamage(IDamagable other)
     {
+        StringBuilder damageText = new();
         float damage = baseDamage;
+        
         foreach (DamageTypeDecorator decorator in damageTypes)
         {
             damage = decorator.CalculateDamage(other, damage);
             if (damage <= 0)
                 break;
         }
-        DoDie();
-        return damage;
+        damageText.Append($"Projectile hit with: {decoratorAffinitiesAsStrings} type damage. ");
+        damageText.Append($"Against entity with: {other.GetWeaknessesAndAffinities()}");
+        
+        DoDie(); // TODO: Make this take longer, add a delay
+        return new DamageData(damage, damageText.ToString());
     }
 }

@@ -8,4 +8,5 @@ public interface IDamagable
     public List<DamageType> Affinities { get; set; }
     public Action<IDamager> OnDamaged { get; set; }
     public void TakeDamage(IDamager other);
+    public string GetWeaknessesAndAffinities();
 }
