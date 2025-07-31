@@ -10,7 +10,7 @@ public class PlayerData : LevelDataEntity
     public FirstPersonMovement movementController;
     public GunInventory gunInventory;
     
-    public override void Load()
+    public override IEntity Load()
     {
         EntityManager entityManagerReference = Game.instance.GetEntityManager();
         PlayerEntity playerEntity;
@@ -41,5 +41,7 @@ public class PlayerData : LevelDataEntity
             
             entityManagerReference.entityPool.AddToPool(playerEntity);
         }
+        
+        return playerEntity;
     }
 }

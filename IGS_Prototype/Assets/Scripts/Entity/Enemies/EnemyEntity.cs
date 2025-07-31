@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyEntity : IEntity, IDamagable // TODO: Make hitbox
+public class EnemyEntity : IEntity
 {
     public GameObject Body { get; set; }
-    public List<DamageType> Weaknesses { get; set; }
-    public List<DamageType> Affinities { get; set; }
-    public Action OnDamaged { get; set; }
     public bool Active { get; set; }
     private HealthSystem healthSystem;
+    public HurtTriggerEntity[] hurtTriggers;
+    private EntityManager entityManagerReference;
 
     public EnemyEntity(HealthData healthData)
     {
         healthSystem = new HealthSystem(healthData);
         healthSystem.onHealthDrained = DoDie;
+        entityManagerReference = Game.instance.GetEntityManager();
     }
     
     public void OnEnableObject()
@@ -26,26 +26,22 @@ public class EnemyEntity : IEntity, IDamagable // TODO: Make hitbox
     public void OnDisableObject()
     {
         Body.SetActive(false);
+        foreach (HurtTriggerEntity hurtTrigger in hurtTriggers)
+        {
+            entityManagerReference.entityPool.DeactivateObject(hurtTrigger);
+        }
     }
 
     public void DoDie()
     {
-        Game.instance.GetEntityManager().entityPool.DeactivateObject(this);
+        entityManagerReference.entityPool.DeactivateObject(this);
     }
 
-    public void CustomUpdate()
-    {
-        // throw new System.NotImplementedException();
-    }
+    public void CustomUpdate() { }
+    public void CustomUpdateAtFixedRate() { }
 
-    public void CustomUpdateAtFixedRate()
+    public void TakeDamage(float damage)
     {
-        // throw new System.NotImplementedException();
-    }
-
-    public void TakeDamage(IDamager other)
-    {
-        OnDamaged?.Invoke();
-        healthSystem.TakeDamage(other.RetrieveDamage(this));
+        healthSystem.TakeDamage(damage);
     }
 }

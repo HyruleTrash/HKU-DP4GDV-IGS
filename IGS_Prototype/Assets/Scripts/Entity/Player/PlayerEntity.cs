@@ -28,8 +28,9 @@ public class PlayerEntity : IEntity
 
     public void DoDie()
     {
-        // TODO: show death screen logic
-        Game.instance.GetEntityManager().entityPool.DeactivateObject(this);
+        Game gameReference = Game.instance;
+        gameReference.GetEntityManager().entityPool.DeactivateObject(this);
+        gameReference.OpenMenu();
     }
 
     public void CustomUpdate()

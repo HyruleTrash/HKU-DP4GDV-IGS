@@ -52,6 +52,10 @@ public class EntityManager
             }
         }
     }
+    
+    #if UNITY_EDITOR
+    private List<Tuple<Vector3, Vector3, bool>> debugRaycastList = new (); // origin, end point, is entity or not
+    #endif
 
     public bool Raycast(Vector3 origin, Vector3 direction, out RaycastHit hit, out IEntity hitEntity, float maxDistance = math.INFINITY, int layerMask = Physics.DefaultRaycastLayers)
     {
@@ -62,7 +66,11 @@ public class EntityManager
         if (!result || hit.collider == null)
             return false;
         
-        return IsBodyAnEntity(hit.collider.gameObject, entities, out hitEntity);
+        bool isEntity = IsBodyAnEntity(hit.collider.gameObject, entities, out hitEntity);
+        #if UNITY_EDITOR
+        debugRaycastList.Add(new (origin, hit.point, isEntity));
+        #endif
+        return isEntity;
     }
 
     private bool IsBodyAnEntity(GameObject body, IEntity[] entities, out IEntity hitEntity)
@@ -96,5 +104,30 @@ public class EntityManager
             current = current.parent;
         }
         return false;
+    }
+
+    public void OnDrawGizmos()
+    {
+        #if UNITY_EDITOR
+        IEntity[] entities = entityPool.GetActiveObjects();
+        foreach (IEntity entity in entities)
+        {
+            Gizmos.color = new Color(0,0,1,0.5f);
+            if (entity is TriggerEntity triggerEntity)
+                Gizmos.DrawSphere(entity.Body.transform.position, triggerEntity.triggerRadius);
+            
+            if (!entity.Body)
+                continue;
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(entity.Body.transform.position, 0.1f);
+        }
+
+        foreach (var data in debugRaycastList)
+        {
+            Gizmos.color = data.Item3 ? Color.red : Color.green;
+            Gizmos.DrawLine(data.Item1, data.Item2);
+        }
+        
+        #endif
     }
 }

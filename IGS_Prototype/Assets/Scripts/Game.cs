@@ -11,18 +11,6 @@ public class Game : SingletonBehaviour<Game>
     [SerializeField] private LevelManager levelManager;
     private EntityManager entityManager;
 
-    public void StartGame()
-    {
-        menu.SetActive(false);
-        levelManager.LoadLevel(levelManager.currentLevel);
-    }
-
-    public void OpenMenu()
-    {
-        menu.SetActive(true);
-        entityManager.DeactivateAllEntities();
-    }
-
     private void Start()
     {
         entityManager = new EntityManager();
@@ -39,6 +27,34 @@ public class Game : SingletonBehaviour<Game>
         entityManager.CustomUpdateAtFixedRate();
     }
 
+    private void OnDrawGizmos()
+    {
+        entityManager?.OnDrawGizmos();
+    }
+
+    public void StartGame()
+    {
+        menu.SetActive(false);
+        levelManager.LoadLevel(levelManager.currentLevel);
+    }
+
+    public void OpenMenu()
+    {
+        menu.SetActive(true);
+        entityManager.DeactivateAllEntities();
+    }
+    
+    public static void CloseGame()
+    {
+        #if UNITY_EDITOR
+        // Exit play mode in the editor
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        // Quit the built application
+        Application.Quit();
+        #endif
+    }
+
     public EntityManager GetEntityManager()
     {
         return entityManager;
@@ -53,16 +69,5 @@ public class Game : SingletonBehaviour<Game>
     public void ResetSaveData()
     {
         levelManager.currentLevel = 0;
-    }
-    
-    public static void CloseGame()
-    {
-        #if UNITY_EDITOR
-        // Exit play mode in the editor
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-        // Quit the built application
-        Application.Quit();
-        #endif
     }
 }

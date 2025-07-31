@@ -9,6 +9,7 @@ public abstract class TriggerEntity : IEntity
     protected Action<IEntity> onTrigger;
     protected System.Type[] layerMasks;
     public float triggerRadius;
+    public bool isChecking = true;
     
     public virtual void OnEnableObject() { }
     public virtual void OnDisableObject() { }
@@ -20,6 +21,8 @@ public abstract class TriggerEntity : IEntity
 
     public virtual void CustomUpdate()
     {
+        if (!isChecking || !Active || layerMasks == null || layerMasks.Length == 0)
+            return;
         List<IEntity> hitEntities = new();
         foreach (var layerMask in layerMasks)
         {

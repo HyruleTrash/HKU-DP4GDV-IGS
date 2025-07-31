@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886e1f8f3f0942969d6ffd4ba3c74770, type: 3}
   m_Name: EnemyData
   m_EditorClassIdentifier: 
-  position: {x: -10, y: 0, z: 5}
+  position: {x: -10, y: 1.5, z: 5}
   bodyPrefab: {fileID: 3126043481286526346, guid: a419be8157a18ed4fad9b2741f5d4fde, type: 3}
   weaknesses: 0000000002000000
   affinities: 01000000
   healthData: {fileID: 11400000, guid: 8832b57f1205ad64eb393f93f9979d82, type: 2}
+  hurtTriggerDatas:
+  - {fileID: 11400000, guid: 0ca4c5c043ce4da47950aa12ddd9d9e5, type: 2}
+  - {fileID: 11400000, guid: 5a6e88cfbab804c4c990944661f1d0c2, type: 2}
+  - {fileID: 11400000, guid: e20600caba72dbb44b71403695e43b9e, type: 2}

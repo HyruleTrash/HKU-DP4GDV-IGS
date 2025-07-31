@@ -5,7 +5,7 @@ public class LevelEndData : LevelDataEntity
 {
     [SerializeField] private GameObject bodyPrefab;
     public float triggerRadius;
-    public override void Load()
+    public override IEntity Load()
     {
         EntityManager entityManagerReference = Game.instance.GetEntityManager();
         LevelEndEntity levelEndEntity;
@@ -25,5 +25,7 @@ public class LevelEndData : LevelDataEntity
             
             Game.instance.GetEntityManager().entityPool.AddToPool(levelEndEntity);
         }
+        
+        return levelEndEntity;
     }
 }
