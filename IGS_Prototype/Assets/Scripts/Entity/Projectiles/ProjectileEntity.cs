@@ -10,6 +10,7 @@ public class ProjectileEntity : TriggerEntity, IDamager
     
     public override void OnEnableObject()
     {
+        base.OnEnableObject();
         Body.SetActive(true);
         layerMasks = new[] { typeof(IDamagable) };
         onTrigger = OnTrigger;

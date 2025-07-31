@@ -15,9 +15,9 @@ namespace LucasCustomClasses
             if (activePool.Contains(item) || inactivePool.Contains(item))
                 return;
             if (item.Active)
-                activePool.Add(item);
+                ActivateObject(item);
             else
-                inactivePool.Add(item);
+                DeactivateObject(item);
         }
 
         public void ActivateObject(T item)

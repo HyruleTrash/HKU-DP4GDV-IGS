@@ -61,7 +61,7 @@ public class EntityManager
     {
         hitEntity = null;
         IEntity[] entities = entityPool.GetActiveObjects();
-        bool result = Physics.Raycast(origin, direction, out hit, maxDistance, layerMask);
+        bool result = Physics.Raycast(origin, direction, out hit, maxDistance, layerMask, QueryTriggerInteraction.Collide);
         
         if (!result || hit.collider == null)
             return false;
@@ -70,25 +70,38 @@ public class EntityManager
         #if UNITY_EDITOR
         debugRaycastList.Add(new (origin, hit.point, isEntity));
         #endif
+
         return isEntity;
     }
 
+    /// <summary>
+    /// Checks if the given body can be found as a body among the entities
+    /// </summary>
+    /// <param name="body"></param>
+    /// <param name="entities"></param>
+    /// <param name="hitEntity"></param>
+    /// <returns></returns>
     private bool IsBodyAnEntity(GameObject body, IEntity[] entities, out IEntity hitEntity)
     {
         hitEntity = null;
+        IEntity isDescendant = null;
+        
         foreach (var entity in entities)
         {
             if (entity == null || entity.Body == null || body == null)
                 continue;
             
-            if (entity.Body == body ||
-                IsDescendant(body.transform, entity.Body.transform))
+            if (entity.Body == body)
             {
                 hitEntity = entity;
-                return true;
+                return true; // prioritizing main entity over possibly being a descendant
             }
+            if (IsDescendant(body.transform, entity.Body.transform))
+                isDescendant = entity;
         }
-        return false;
+        
+        hitEntity = isDescendant;
+        return isDescendant != null;
     }
     
     private static bool IsDescendant(Transform potentialDescendant, Transform potentialAncestor)

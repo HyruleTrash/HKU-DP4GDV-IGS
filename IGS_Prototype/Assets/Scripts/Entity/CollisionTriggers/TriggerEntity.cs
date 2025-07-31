@@ -5,14 +5,28 @@ using UnityEngine;
 public abstract class TriggerEntity : IEntity
 {
     public GameObject Body { get; set; }
+    private SphereCollider collider = null;
     public bool Active { get; set; }
     protected Action<IEntity> onTrigger;
     protected System.Type[] layerMasks;
     public float triggerRadius;
     public bool isChecking = true;
-    
-    public virtual void OnEnableObject() { }
+
+    public virtual void OnEnableObject()
+    {
+        if (Body == null)
+            Body = new GameObject("TriggerEntity");
+        if (collider == null)
+            SetupCollider();
+    }
     public virtual void OnDisableObject() { }
+
+    private void SetupCollider()
+    {
+        collider = Body.AddComponent<SphereCollider>();
+        collider.isTrigger = true;
+        collider.radius = triggerRadius;
+    }
 
     public virtual void DoDie()
     {

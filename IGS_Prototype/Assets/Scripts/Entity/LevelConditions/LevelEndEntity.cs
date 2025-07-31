@@ -16,6 +16,7 @@ public class LevelEndEntity : TriggerEntity
     
     public override void OnEnableObject()
     {
+        base.OnEnableObject();
         Body.SetActive(true);
     }
 
