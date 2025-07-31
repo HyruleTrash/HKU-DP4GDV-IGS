@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 32
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -15,3 +15,11 @@ MonoBehaviour:
   inventoryPrefab: {fileID: 98194938260072911, guid: 96fdd55acd674024f90e4dbffa192645, type: 3}
   inventoryItemPrefab: {fileID: 5155819159562391475, guid: 29fda5e13f53c764094611b715f86b7b, type: 3}
   inventoryEquipIconPrefab: {fileID: 5016973018143552829, guid: 9f7e57ebe4d84f840bcacb143dfd3fe2, type: 3}
+  inventoryAmmoCounterPrefab:
+    prefab: {fileID: 8865914576713871935, guid: 1157402e7a25cea4f8cdd3f7c8438e61, type: 3}
+    instance: {fileID: 0}
+    instanceTextComponent: {fileID: 0}
+  inventoryReloadingPrefab:
+    prefab: {fileID: 8524031118202996879, guid: 5fdb068eaa210ac4c9afe7a75b38d1a3, type: 3}
+    instance: {fileID: 0}
+    instanceTextComponent: {fileID: 0}

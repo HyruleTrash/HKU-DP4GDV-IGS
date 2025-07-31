@@ -9,6 +9,16 @@ public class Gun
     public Timer reloadTimer;
     public IShootStrategy shootStrategy;
     private int ammoCapacity;
+    private int CurrentAmmo
+    {
+        get => currentAmmo;
+        set
+        {
+            currentAmmo = value;
+            UpdateUI();
+        }
+    }
+
     private int currentAmmo = 0;
     private float baseDamage;
     private float force;
@@ -16,6 +26,7 @@ public class Gun
     public Gun(int ammoCapacity, float baseDamage, float force)
     {
         this.ammoCapacity = ammoCapacity;
+        this.currentAmmo = ammoCapacity;
         this.baseDamage = baseDamage;
         this.force = force;
     }
@@ -26,10 +37,10 @@ public class Gun
         fireRateTimer.running = false;
         reloadTimer.Reset();
         fireRateTimer.Reset();
-        canShoot = currentAmmo > 0;
-        
+        canShoot = CurrentAmmo > 0;
         reloadTimer.onEnd = Reload;
         fireRateTimer.onEnd = () => canShoot = true;
+        UpdateUI();
     }
 
     public void Unequip()
@@ -42,17 +53,27 @@ public class Gun
     {
         canShoot = false;
         reloadTimer.Reset();
+        SetReloadUI("Reloading...");
     }
     
     private void Reload()
     {
-        currentAmmo = ammoCapacity;
+        CurrentAmmo = ammoCapacity;
         canShoot = true;
+        SetReloadUI("");
+    }
+
+    private void SetReloadUI(string text)
+    {
+        GunInventoryUI ui = GunInventoryUI.Instance;
+        if (!ui.inventoryReloadingPrefab.instance)
+            return;
+        ui.inventoryReloadingPrefab.instanceTextComponent.text = text;
     }
 
     public void TryShoot(ShootData shootData)
     {
-        if (currentAmmo <= 0 && !reloadTimer.running)
+        if (CurrentAmmo <= 0 && !reloadTimer.running)
             TriggerReload();
         if (!canShoot)
             return;
@@ -61,8 +82,16 @@ public class Gun
         shootData.force = force;
         shootStrategy.Shoot(shootData);
         
-        currentAmmo--;
+        CurrentAmmo--;
         canShoot = false;
         fireRateTimer.Reset();
+    }
+
+    private void UpdateUI()
+    {
+        GunInventoryUI ui = GunInventoryUI.Instance;
+        if (!ui.inventoryAmmoCounterPrefab.instance)
+            return;
+        GunInventoryUI.Instance.inventoryAmmoCounterPrefab.instanceTextComponent.text = $"{CurrentAmmo} / {ammoCapacity}";
     }
 }
