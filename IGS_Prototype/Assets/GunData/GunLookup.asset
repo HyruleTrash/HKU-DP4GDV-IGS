@@ -15,3 +15,4 @@ MonoBehaviour:
   registeredGuns:
   - {fileID: 11400000, guid: 87570151f6b34034288b6a9cc4f9ef9e, type: 2}
   - {fileID: 11400000, guid: 4139d01287ff84b41b372cbe8ccfde87, type: 2}
+  - {fileID: 11400000, guid: 0216efbdb2218e24e997c234428cbdaf, type: 2}

@@ -15,4 +15,4 @@ MonoBehaviour:
   shootAction: {fileID: 7478067814684077793, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   equipAction: {fileID: -8268357274351857669, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   reloadAction: {fileID: 5061693554522066509, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  registeredGuns: 0000000001000000
+  registeredGuns: 000000000100000002000000

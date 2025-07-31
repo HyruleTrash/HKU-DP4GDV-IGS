@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d644668bfd7545aa952546df89d787ad, type: 3}
+  m_Name: GunBuilder_3
+  m_EditorClassIdentifier: 
+  fireRate: 2
+  reloadTime: 2
+  baseDamage: 5
+  ammoCapacity: 30
+  shootStrategy: {fileID: 11400000, guid: 9b114a71182732d45ae2cbbd34acabbf, type: 2}
+  bulletOrigin: {x: 0, y: 0, z: 1}
+  fireRateDeviation:
+    useRandom: 0
+    maximumValue: 0
+    minimumValue: 0
+  reloadTimeDeviation:
+    useRandom: 0
+    maximumValue: 0
+    minimumValue: 0
+  baseDamageDeviation:
+    useRandom: 1
+    maximumValue: 2
+    minimumValue: 0
+  force: 20
