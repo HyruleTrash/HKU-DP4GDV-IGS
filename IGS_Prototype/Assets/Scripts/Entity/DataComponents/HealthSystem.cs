@@ -23,8 +23,6 @@ public class HealthSystem
         }
         else if (currentHealth >= configData.maxHealth)
             currentHealth = configData.maxHealth;
-
-        Debug.Log(currentHealth);
     }
     
     public void Heal(float heal) => TakeDamage(-heal);

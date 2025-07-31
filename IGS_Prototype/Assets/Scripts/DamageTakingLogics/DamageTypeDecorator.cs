@@ -14,8 +14,6 @@ public class DamageTypeDecorator
     {
         damage = ApplyMultiplier(damage, other.Affinities, DamageTypeLookup.affinityTable);
         damage = ApplyMultiplier(damage, other.Weaknesses, DamageTypeLookup.weaknessTable);
-        
-        Debug.Log($"affinity: {affinity.ToString()}: {damage}");
         return damage;
     }
 
@@ -29,7 +27,6 @@ public class DamageTypeDecorator
             {
                 if (record.damageType != affinity)
                     continue;
-                Debug.Log($"{damage} * {record.multiplier} = {damage * record.multiplier}");
                 damage *= record.multiplier;
                 break;
             }

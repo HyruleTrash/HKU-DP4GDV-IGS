@@ -4,9 +4,11 @@ using UnityEngine.InputSystem;
 
 public class Game : SingletonBehaviour<Game>
 {
+    [Header("UI")]
+    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject EndScreen;
     [Header("Input")]
     [SerializeField] private InputActionReference quitAction;
-    [SerializeField] private GameObject menu;
     [Header("Managers")]
     [SerializeField] private LevelManager levelManager;
     private EntityManager entityManager;
@@ -41,7 +43,14 @@ public class Game : SingletonBehaviour<Game>
     public void OpenMenu()
     {
         menu.SetActive(true);
+        EndScreen.SetActive(false);
         entityManager.DeactivateAllEntities();
+    }
+
+    public void TriggerEndScreen()
+    {
+        entityManager.DeactivateAllEntities();
+        EndScreen.SetActive(true);
     }
     
     public static void CloseGame()

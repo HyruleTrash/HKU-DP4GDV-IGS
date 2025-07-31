@@ -17,8 +17,13 @@ public class LevelManager : ScriptableObject
     public void AdvanceLevel()
     {
         currentLevel++;
-        if (currentLevel >= levels.Count)
-            currentLevel = 0;
-        LoadLevel(currentLevel);
+        if (currentLevel < levels.Count)
+        {
+            LoadLevel(currentLevel);
+            return;
+        }
+        
+        currentLevel = 0;
+        Game.instance.TriggerEndScreen();
     }
 }

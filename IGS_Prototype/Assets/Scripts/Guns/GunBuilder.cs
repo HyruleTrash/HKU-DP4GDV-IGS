@@ -52,7 +52,6 @@ public class GunBuilder : ScriptableObject
             return basis;
         
         float result = basis * Random.Range(record.minimumValue, record.maximumValue);
-        Debug.Log($"result: {result}, condition: {condition(result)}, min: {record.minimumValue}");
         if (condition(result))
             return result;
         return record.minimumValue;
