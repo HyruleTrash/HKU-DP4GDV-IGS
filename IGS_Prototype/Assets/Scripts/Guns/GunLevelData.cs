@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "GunInventory", menuName = "FPS/Guns/GunInventory")]
-public class GunInventory : ScriptableObject
+[CreateAssetMenu(fileName = "GunLevelData", menuName = "FPS/Guns/GunLevelData")]
+public class GunLevelData : ScriptableObject
 {
     [Header("Input")]
     [SerializeField] private InputActionReference shootAction;
@@ -16,13 +16,17 @@ public class GunInventory : ScriptableObject
 
     private void OnValidate()
     {
-        int lookupCount = GunLookup.instance.GetCount();
+        GunLookup guns = GunLookup.Instance;
         List<int> newRegisteredGuns = new();
-        foreach (var id in registeredGuns)
+        if (guns != null)
         {
-            if (id >= lookupCount || id < 0)
-                continue;
-            newRegisteredGuns.Add(id);
+            int lookupCount = GunLookup.Instance.GetCount();
+            foreach (var id in registeredGuns)
+            {
+                if (id >= lookupCount || id < 0)
+                    continue;
+                newRegisteredGuns.Add(id);
+            }
         }
         registeredGuns = newRegisteredGuns;
     }
@@ -35,7 +39,7 @@ public class GunInventory : ScriptableObject
         
         foreach (var id in registeredGuns)
         {
-            gunHandler.AddGun(GunLookup.instance.GetBuilder(id).Build());
+            gunHandler.AddGun(GunLookup.Instance.GetBuilder(id).Build());
         }
     }
 }

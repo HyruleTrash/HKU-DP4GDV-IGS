@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e44f2c13773a2749a5f7205a18f93d1, type: 3}
-  m_Name: GunInventory
+  m_Name: GunLevelData
   m_EditorClassIdentifier: 
   shootAction: {fileID: 7478067814684077793, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   equipAction: {fileID: -8268357274351857669, guid: 052faaac586de48259a63d0c4782560b, type: 3}

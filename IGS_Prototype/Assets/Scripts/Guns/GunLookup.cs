@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GunLookup", menuName = "FPS/Guns/GunLookup")]
-public class GunLookup : ScriptableSingleton<GunLookup>
+public class GunLookup : ScriptableObjectSingleton<GunLookup>
 {
     [SerializeField] private List<GunBuilder> registeredGuns = new();
 

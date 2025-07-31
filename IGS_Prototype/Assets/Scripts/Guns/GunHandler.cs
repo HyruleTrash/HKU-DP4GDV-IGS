@@ -21,8 +21,12 @@ public class GunHandler
         };
     }
 
-    public void AddGun(Gun newGun) => activeGuns.Add(newGun);
-    
+    public void AddGun(Gun newGun)
+    {
+        activeGuns.Add(newGun);
+        GunInventoryUI.Instance.AddGun(newGun);
+    }
+
     public void EquipNext()
     {
         Equip(activeGunId + 1);
@@ -31,11 +35,15 @@ public class GunHandler
     public void Equip(int next)
     {
         if (IsGunIdValid(activeGunId))
+        {
             activeGuns[activeGunId].Unequip();
+            GunInventoryUI.Instance.UnEquip(activeGunId);
+        }
         activeGunId = next;
         if (activeGunId > activeGuns.Count - 1) // -1 due to zero indexing
             activeGunId = 0;
         activeGuns[activeGunId].Equip();
+        GunInventoryUI.Instance.Equip(activeGunId);
     }
     
     private bool IsGunIdValid(int id) => id >= 0 && id <= activeGuns.Count - 1;

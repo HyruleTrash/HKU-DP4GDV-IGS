@@ -16,4 +16,4 @@ MonoBehaviour:
   bodyPrefab: {fileID: 1858571737136014711, guid: 3cf6c106e0f4c074db6bffba4fe59e34, type: 3}
   camera: {fileID: 11400000, guid: a45a8aabdc8480d48a04e1ab989b42da, type: 2}
   movementController: {fileID: 11400000, guid: d303a27bdcbd8ec43a27c821a3475db2, type: 2}
-  gunInventory: {fileID: 11400000, guid: f66aa9315f6853e478985263691cfa04, type: 2}
+  gunLevelData: {fileID: 11400000, guid: f66aa9315f6853e478985263691cfa04, type: 2}

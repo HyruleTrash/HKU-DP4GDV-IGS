@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff814fa0a6d1574d919e7d80eab5ef8, type: 3}
-  m_Name: ProjectileShootStrategy
+  m_Script: {fileID: 11500000, guid: 573607cd946d45f8a143f1a6fc65c115, type: 3}
+  m_Name: RaycastShootStrategy
   m_EditorClassIdentifier: 
-  builder: {fileID: 11400000, guid: 50a318fa25225e541b0d2af95f9c2c21, type: 2}
+  bulletPathMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  maxDistance: 1000
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295

@@ -18,4 +18,16 @@ MonoBehaviour:
   ammoCapacity: 10
   shootStrategy: {fileID: 11400000, guid: 9b114a71182732d45ae2cbbd34acabbf, type: 2}
   bulletOrigin: {x: 0, y: 0, z: 1}
+  fireRateDeviation:
+    useRandom: 0
+    maximumValue: 0
+    minimumValue: 0
+  reloadTimeDeviation:
+    useRandom: 0
+    maximumValue: 0
+    minimumValue: 0
+  baseDamageDeviation:
+    useRandom: 0
+    maximumValue: 0
+    minimumValue: 0
   force: 20

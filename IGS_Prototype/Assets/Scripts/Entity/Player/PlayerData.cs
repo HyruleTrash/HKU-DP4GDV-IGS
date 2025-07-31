@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "EntityData/PlayerData")]
 public class PlayerData : LevelDataEntity
@@ -8,7 +9,7 @@ public class PlayerData : LevelDataEntity
     [SerializeField] private GameObject bodyPrefab;
     public FirstPersonCamera camera;
     public FirstPersonMovement movementController;
-    public GunInventory gunInventory;
+    [FormerlySerializedAs("gunInventory")] public GunLevelData gunLevelData;
     
     public override IEntity Load()
     {
@@ -23,7 +24,7 @@ public class PlayerData : LevelDataEntity
         }
         else
         {
-            if (!camera || !movementController || !gunInventory || !bodyPrefab)
+            if (!camera || !movementController || !gunLevelData || !bodyPrefab)
                 throw new WarningException("The player in this level is missing data and cannot be loaded");
             
             playerEntity = new PlayerEntity(this);
@@ -37,7 +38,7 @@ public class PlayerData : LevelDataEntity
             movementController.Active = true;
 
             playerEntity.gunHandler = new GunHandler(playerEntity);
-            gunInventory.Load(playerEntity.gunHandler);
+            gunLevelData.Load(playerEntity.gunHandler);
             
             entityManagerReference.entityPool.AddToPool(playerEntity);
         }

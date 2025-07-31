@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30fe2662cba7447d985b58bdc1dccbeb, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fc57048b43140f789b9aaf0be1b4c80, type: 3}
   m_Name: GunLookup
   m_EditorClassIdentifier: 
   registeredGuns:

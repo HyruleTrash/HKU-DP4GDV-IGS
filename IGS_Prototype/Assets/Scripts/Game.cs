@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class Game : SingletonBehaviour<Game>
 {
     [Header("UI")]
     [SerializeField] private GameObject menu;
-    [SerializeField] private GameObject EndScreen;
+    [SerializeField] private GameObject endScreen;
+    public GameObject gameInterface;
     [Header("Input")]
     [SerializeField] private InputActionReference quitAction;
     [Header("Managers")]
@@ -17,6 +19,7 @@ public class Game : SingletonBehaviour<Game>
     {
         entityManager = new EntityManager();
         quitAction.action.performed += ctx => OpenMenu();
+        menu.SetActive(true);
     }
 
     private void Update()
@@ -37,20 +40,23 @@ public class Game : SingletonBehaviour<Game>
     public void StartGame()
     {
         menu.SetActive(false);
+        gameInterface.SetActive(true);
         levelManager.LoadLevel(levelManager.currentLevel);
     }
 
     public void OpenMenu()
     {
         menu.SetActive(true);
-        EndScreen.SetActive(false);
+        gameInterface.SetActive(false);
+        endScreen.SetActive(false);
         entityManager.DeactivateAllEntities();
     }
 
     public void TriggerEndScreen()
     {
         entityManager.DeactivateAllEntities();
-        EndScreen.SetActive(true);
+        gameInterface.SetActive(false);
+        endScreen.SetActive(true);
     }
     
     public static void CloseGame()
