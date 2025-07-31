@@ -1,10 +1,21 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "RaycastShootStrategy", menuName = "FPS/Guns/ShootStrategies/RaycastShootStrategy")]
 public class RaycastShootStrategy : ScriptableObject, IShootStrategy
 {
-    [SerializeField] private Material BulletPathMaterial;
+    public class RaycastDamageHolder : IDamager
+    {
+        private readonly float damage;
+        public RaycastDamageHolder(float damage) => this.damage = damage;
+        public float RetrieveDamage(IDamagable other)
+        {
+            return damage;
+        }
+    }
+    
+    [FormerlySerializedAs("BulletPathMaterial")] [SerializeField] private Material bulletPathMaterial;
     [SerializeField] private float maxDistance = 1000f;
     [SerializeField] private LayerMask layerMask;
     
@@ -20,19 +31,23 @@ public class RaycastShootStrategy : ScriptableObject, IShootStrategy
         }
         else
         {
-            bulletLineEntity = new BulletLineEntity(BulletPathMaterial);
+            bulletLineEntity = new BulletLineEntity(bulletPathMaterial);
             bulletLineEntity.Active = true;
-            Game.instance.GetEntityManager().entityPool.AddToPool(bulletLineEntity);
+            entityManagerReference.entityPool.AddToPool(bulletLineEntity);
         }
 
-        if (Physics.Raycast(data.origin, data.direction, out RaycastHit hit, maxDistance, layerMask))
+        bool hitAnEntity = entityManagerReference.Raycast(data.origin, data.direction, out RaycastHit hit, out var entity, maxDistance, layerMask);
+        if (hit.collider != null)
         {
-            bulletLineEntity.SetData(data.origin, hit.point, BulletPathMaterial);
-            // TODO: implement collision logic (aka damage dealing)
+            bulletLineEntity.SetData(data.origin, hit.point, bulletPathMaterial);
+            if (hitAnEntity && entity is IDamagable damagable)
+            {
+                damagable.TakeDamage(new RaycastDamageHolder(data.baseDamage));
+            }
         }
         else
         {
-            bulletLineEntity.SetData(data.origin, data.direction * maxDistance, BulletPathMaterial);
+            bulletLineEntity.SetData(data.origin, data.direction * maxDistance, bulletPathMaterial);
         }
     }
 }

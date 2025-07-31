@@ -57,6 +57,8 @@ public class BulletLineEntity : IEntity
 
     public void CustomUpdate()
     {
+        if (!Active)
+            return;
         Color color = lineRenderer.startColor;
 
         // Reduce alpha over time

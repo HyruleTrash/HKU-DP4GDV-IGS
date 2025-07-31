@@ -23,25 +23,7 @@ public abstract class TriggerEntity : IEntity
         List<IEntity> hitEntities = new();
         foreach (var layerMask in layerMasks)
         {
-            CheckLayerMask(layerMask, hitEntities);
-        }
-    }
-
-    private void CheckLayerMask(System.Type layerMask, List<IEntity> hitEntities)
-    {
-        IEntity[] entities = Game.instance.GetEntityManager().entityPool.GetActiveObjects(layerMask);
-        foreach (IEntity entity in entities)
-        {
-            float otherRadius = 0;
-            if (entity is TriggerEntity otherTriggerEntity)
-                otherRadius = otherTriggerEntity.triggerRadius;
-            
-            if (!hitEntities.Contains(entity) && entity.Active && 
-                Vector3.Distance(Body.transform.position, entity.Body.transform.position) <= triggerRadius + otherRadius)
-            {
-                hitEntities.Add(entity);
-                onTrigger.Invoke(entity);
-            }
+            Game.instance.GetEntityManager().OverlapRadiusOnLayerMask(Body.transform.position, triggerRadius, layerMask, hitEntities, onTrigger);
         }
     }
 
