@@ -10,6 +10,7 @@ public class GunBuilder : ScriptableObject
     [SerializeField] private float baseDamage;
     [SerializeField] private int ammoCapacity;
     [SerializeField] private ScriptableObject shootStrategy;
+    [SerializeField] private Vector3 bulletOrigin;
     [Header("For projectile based guns")]
     [SerializeField] private float force = 0;
 
@@ -27,6 +28,7 @@ public class GunBuilder : ScriptableObject
         newGun.fireRateTimer = new Timer(fireRate);
         newGun.reloadTimer = new Timer(reloadTime);
         newGun.shootStrategy = (IShootStrategy)shootStrategy;
+        newGun.bulletOrigin = bulletOrigin;
         // TODO: make a use for this being a builder, such as adding randomness
         return newGun;
     }

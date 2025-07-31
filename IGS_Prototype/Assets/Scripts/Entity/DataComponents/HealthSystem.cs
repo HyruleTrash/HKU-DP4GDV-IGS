@@ -28,4 +28,5 @@ public class HealthSystem
     }
     
     public void Heal(float heal) => TakeDamage(-heal);
+    public void HealMax() => Heal(configData.maxHealth);
 }

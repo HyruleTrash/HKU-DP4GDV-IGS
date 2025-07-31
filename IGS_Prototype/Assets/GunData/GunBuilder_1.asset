@@ -17,3 +17,5 @@ MonoBehaviour:
   baseDamage: 2
   ammoCapacity: 10
   shootStrategy: {fileID: 11400000, guid: f4e08cf6803ed6842aeb156e9e0c8729, type: 2}
+  bulletOrigin: {x: 0, y: -0.3, z: 0.5}
+  force: 0

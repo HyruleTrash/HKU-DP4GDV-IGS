@@ -5,11 +5,20 @@ public class GunHandler
 {
     private PlayerEntity playerReference;
     private List<Gun> activeGuns = new();
+    private GameObject bulletOrigin;
     public int activeGunId = -1;
 
     public GunHandler(PlayerEntity playerReference)
     {
         this.playerReference = playerReference;
+        bulletOrigin = new GameObject("BulletOrigin")
+        {
+            transform =
+            {
+                position = Vector3.zero,
+                parent = playerReference.GetCameraTransform()
+            }
+        };
     }
 
     public void AddGun(Gun newGun) => activeGuns.Add(newGun);
@@ -45,9 +54,10 @@ public class GunHandler
         if (!IsGunIdValid(activeGunId))
             return;
         Gun currentGun = activeGuns[activeGunId];
+        bulletOrigin.transform.localPosition = currentGun.bulletOrigin;
         
         ShootData shootData = new ShootData();
-        shootData.origin = playerReference.GetBulletOrigin();
+        shootData.origin = bulletOrigin.transform.position;
         shootData.direction = playerReference.GetBulletDirection();
         
         currentGun.TryShoot(shootData);

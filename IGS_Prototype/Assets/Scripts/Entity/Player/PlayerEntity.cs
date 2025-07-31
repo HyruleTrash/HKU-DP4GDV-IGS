@@ -43,18 +43,18 @@ public class PlayerEntity : IEntity
         playerData.movementController.CustomUpdateAtFixedRate(Body);
     }
 
-    public Vector3 GetBulletOrigin()
+    public Transform GetCameraTransform()
     {
         Transform transform = playerData.camera.GetTransform();
-        if (transform == null)
-            return Vector3.zero;
-        return transform.position + transform.forward + (-transform.up * 0.5f); // Used a magic number here, since this is supposedly temporary TODO: make this more elegant
+        if (!transform)
+            return null;
+        return transform;
     }
     
     public Vector3 GetBulletDirection()
     {
         Transform transform = playerData.camera.GetTransform();
-        if (transform == null)
+        if (!transform)
             return Vector3.zero;
         return transform.forward;
     }

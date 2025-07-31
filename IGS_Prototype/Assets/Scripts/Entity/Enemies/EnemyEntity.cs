@@ -19,6 +19,7 @@ public class EnemyEntity : IEntity, IDamagable
     
     public void OnEnableObject()
     {
+        healthSystem.HealMax();
         Body.SetActive(true);
     }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Gun
 {
+    public Vector3 bulletOrigin;
     public bool canShoot;
     public Timer fireRateTimer;
     public Timer reloadTimer;

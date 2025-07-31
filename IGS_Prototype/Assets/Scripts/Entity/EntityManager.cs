@@ -55,20 +55,31 @@ public class EntityManager
 
     public bool Raycast(Vector3 origin, Vector3 direction, out RaycastHit hit, out IEntity hitEntity, float maxDistance = math.INFINITY, int layerMask = Physics.DefaultRaycastLayers)
     {
+        hitEntity = null;
         IEntity[] entities = entityPool.GetActiveObjects();
-        if (Physics.Raycast(origin, direction, out hit, maxDistance, layerMask))
+        bool result = Physics.Raycast(origin, direction, out hit, maxDistance, layerMask);
+        
+        if (!result || hit.collider == null)
+            return false;
+        
+        return IsBodyAnEntity(hit.collider.gameObject, entities, out hitEntity);
+    }
+
+    private bool IsBodyAnEntity(GameObject body, IEntity[] entities, out IEntity hitEntity)
+    {
+        hitEntity = null;
+        foreach (var entity in entities)
         {
-            foreach (var entity in entities)
+            if (entity == null || entity.Body == null || body == null)
+                continue;
+            
+            if (entity.Body == body ||
+                IsDescendant(body.transform, entity.Body.transform))
             {
-                if (entity.Body == hit.collider.gameObject ||
-                    IsDescendant(hit.collider.gameObject.transform, entity.Body.transform))
-                {
-                    hitEntity = entity;
-                    return true;
-                }
+                hitEntity = entity;
+                return true;
             }
         }
-        hitEntity = null;
         return false;
     }
     

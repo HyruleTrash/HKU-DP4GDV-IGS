@@ -57,7 +57,7 @@ public class BulletLineEntity : IEntity
 
     public void CustomUpdate()
     {
-        if (!Active)
+        if (!Active || !lineRenderer)
             return;
         Color color = lineRenderer.startColor;
 
