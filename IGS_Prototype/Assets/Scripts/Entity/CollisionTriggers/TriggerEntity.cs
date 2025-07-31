@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class TriggerEntity : IEntity
 {
     public GameObject Body { get; set; }
-    private SphereCollider collider = null;
+    protected SphereCollider collider = null;
     public bool Active { get; set; }
     protected Action<IEntity> onTrigger;
     protected System.Type[] layerMasks;

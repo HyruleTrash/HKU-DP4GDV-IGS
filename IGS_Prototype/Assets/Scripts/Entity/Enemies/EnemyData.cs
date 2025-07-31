@@ -33,7 +33,8 @@ public class EnemyData : LevelDataEntity
 
         List<HurtTriggerEntity> hurtTriggers = new List<HurtTriggerEntity>();
         foreach (HurtTriggerData hurtTriggerData in hurtTriggerDatas)
-            hurtTriggerData.Load(enemyEntity.Body.transform, enemyEntity.TakeDamage, weaknesses, affinities);
+            hurtTriggers.Add((HurtTriggerEntity)hurtTriggerData.Load(enemyEntity.Body.transform, enemyEntity.TakeDamage, weaknesses, affinities));
+        
         enemyEntity.hurtTriggers = hurtTriggers.ToArray();
 
         return enemyEntity;

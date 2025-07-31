@@ -28,6 +28,8 @@ public class HurtTriggerEntity : TriggerEntity, IDamagable
         this.Weaknesses = weaknesses;
         this.Affinities = affinities;
         this.triggerRadius = radius;
+        if (Body)
+            this.collider.radius = this.triggerRadius;
     }
     
     public void TakeDamage(IDamager other)
