@@ -20,7 +20,7 @@ public class ProjectileShootStrategy : ScriptableObject, IShootStrategy
         }
         
         projectileEntity.Body.transform.position = data.origin;
-        projectileEntity.rb.AddForce(data.direction * data.force, ForceMode.Impulse);
+        projectileEntity.rb.AddForce(data.direction * data.force, ForceMode.Impulse); // TODO: add player current velocity to this
         projectileEntity.baseDamage = data.baseDamage;
     }
 }

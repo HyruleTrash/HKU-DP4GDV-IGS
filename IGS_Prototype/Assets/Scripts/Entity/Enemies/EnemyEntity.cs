@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyEntity : IEntity, IDamagable
+public class EnemyEntity : IEntity, IDamagable // TODO: Make hitbox
 {
     public GameObject Body { get; set; }
     public List<DamageType> Weaknesses { get; set; }

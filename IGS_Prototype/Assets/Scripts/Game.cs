@@ -1,23 +1,32 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Game : SingletonBehaviour<Game>
 {
-    [SerializeField] private GameObject startButton;
-    
+    [Header("Input")]
+    [SerializeField] private InputActionReference quitAction;
+    [SerializeField] private GameObject menu;
+    [Header("Managers")]
     [SerializeField] private LevelManager levelManager;
     private EntityManager entityManager;
 
     public void StartGame()
     {
-        startButton.SetActive(false);
+        menu.SetActive(false);
         levelManager.LoadLevel(levelManager.currentLevel);
+    }
+
+    public void OpenMenu()
+    {
+        menu.SetActive(true);
+        entityManager.DeactivateAllEntities();
     }
 
     private void Start()
     {
         entityManager = new EntityManager();
-        levelManager.currentLevel = 0; //TODO: make this a feature later
+        quitAction.action.performed += ctx => OpenMenu();
     }
 
     private void Update()
@@ -39,5 +48,21 @@ public class Game : SingletonBehaviour<Game>
     {
         entityManager.DeactivateAllEntities();
         levelManager.AdvanceLevel();
+    }
+
+    public void ResetSaveData()
+    {
+        levelManager.currentLevel = 0;
+    }
+    
+    public static void CloseGame()
+    {
+        #if UNITY_EDITOR
+        // Exit play mode in the editor
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
+        // Quit the built application
+        Application.Quit();
+        #endif
     }
 }
