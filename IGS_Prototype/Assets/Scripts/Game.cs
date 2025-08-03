@@ -8,6 +8,7 @@ public class Game : SingletonBehaviour<Game>
     [Header("UI")]
     [SerializeField] private GameObject menu;
     [SerializeField] private GameObject endScreen;
+    [SerializeField] private GameObject deathScreen;
     public GameObject gameInterface;
     [Header("Input")]
     [SerializeField] private InputActionReference quitAction;
@@ -25,6 +26,8 @@ public class Game : SingletonBehaviour<Game>
     private void Update()
     {
         entityManager.CustomUpdate();
+        if (gameInterface.activeInHierarchy)
+            LevelTimer.Instance.Update();
     }
 
     private void FixedUpdate()
@@ -50,6 +53,7 @@ public class Game : SingletonBehaviour<Game>
         menu.SetActive(true);
         gameInterface.SetActive(false);
         endScreen.SetActive(false);
+        deathScreen.SetActive(false);
         entityManager.DeactivateAllEntities();
     }
 
@@ -58,6 +62,13 @@ public class Game : SingletonBehaviour<Game>
         entityManager.DeactivateAllEntities();
         gameInterface.SetActive(false);
         endScreen.SetActive(true);
+    }
+    
+    public void TriggerDeathScreen()
+    {
+        entityManager.DeactivateAllEntities();
+        gameInterface.SetActive(false);
+        deathScreen.SetActive(true);
     }
     
     public static void CloseGame()

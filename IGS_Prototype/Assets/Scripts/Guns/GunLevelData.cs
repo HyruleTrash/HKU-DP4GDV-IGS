@@ -27,8 +27,8 @@ public class GunLevelData : ScriptableObject
                     continue;
                 newRegisteredGuns.Add(id);
             }
+            registeredGuns = newRegisteredGuns;
         }
-        registeredGuns = newRegisteredGuns;
     }
 
     public void Load(GunHandler gunHandler)

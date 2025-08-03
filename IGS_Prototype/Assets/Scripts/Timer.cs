@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace LucasCustomClasses
 {
@@ -50,6 +51,17 @@ namespace LucasCustomClasses
         public double GetCurrentTime()
         {
             return _currentTime;
+        }
+        
+        private string GetFormattedTime(double time)
+        {
+            var timeSpan = TimeSpan.FromSeconds(time);
+            return $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+        }
+        
+        public string GetFormattedTime(bool countDown = false)
+        {
+            return countDown ? GetFormattedTime(_maxTime - _currentTime) : GetFormattedTime(_currentTime);
         }
     }
 }

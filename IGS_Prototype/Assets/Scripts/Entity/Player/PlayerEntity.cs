@@ -30,7 +30,7 @@ public class PlayerEntity : IEntity
     {
         Game gameReference = Game.instance;
         gameReference.GetEntityManager().entityPool.DeactivateObject(this);
-        gameReference.OpenMenu();
+        gameReference.TriggerDeathScreen();
     }
 
     public void CustomUpdate()

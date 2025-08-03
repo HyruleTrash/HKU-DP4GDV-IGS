@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     [SerializeField] private List<LevelDataEntity> entities;
+    [SerializeField] private float levelTime;
 
     public void Load()
     {
@@ -12,5 +13,6 @@ public class LevelData : ScriptableObject
         {
             e.Load();
         }
+        LevelTimer.Instance.Setup(levelTime);
     }
 }
