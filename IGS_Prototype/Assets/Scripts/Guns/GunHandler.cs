@@ -4,8 +4,9 @@ using UnityEngine;
 public class GunHandler
 {
     private PlayerEntity playerReference;
-    private List<Gun> activeGuns = new();
+    private Dictionary<int, Gun> activeGuns = new();
     private GameObject bulletOrigin;
+    private bool active = true;
     public int activeGunId = -1;
 
     public GunHandler(PlayerEntity playerReference)
@@ -21,19 +22,22 @@ public class GunHandler
         };
     }
 
-    public void AddGun(Gun newGun)
+    public void AddGun(Gun newGun, int id)
     {
-        activeGuns.Add(newGun);
+        activeGuns.Add(id, newGun);
         GunInventoryUI.Instance.AddGun(newGun);
     }
 
     public void EquipNext()
     {
-        Equip(activeGunId + 1);
+        if (active)
+            Equip(activeGunId + 1);
     }
 
     public void Equip(int next)
     {
+        if (!active)
+            return;
         if (IsGunIdValid(activeGunId))
         {
             activeGuns[activeGunId].Unequip();
@@ -59,6 +63,8 @@ public class GunHandler
     
     public void TryShoot()
     {
+        if (!active)
+            return;
         if (!IsGunIdValid(activeGunId))
             return;
         Gun currentGun = activeGuns[activeGunId];
@@ -73,9 +79,16 @@ public class GunHandler
 
     public void Reload()
     {
+        if (!active)
+            return;
         if (!IsGunIdValid(activeGunId))
             return;
         Gun currentGun = activeGuns[activeGunId];
         currentGun.TriggerReload();
+    }
+
+    public void Destroy()
+    {
+        active = false;
     }
 }

@@ -59,4 +59,10 @@ public class PlayerEntity : IEntity
             return Vector3.zero;
         return transform.forward;
     }
+
+    public void Destroy()
+    {
+        GameObject.Destroy(Body);
+        gunHandler.Destroy();
+    }
 }

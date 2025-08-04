@@ -39,7 +39,7 @@ public class GunLevelData : ScriptableObject
         
         foreach (var id in registeredGuns)
         {
-            gunHandler.AddGun(GunLookup.Instance.GetBuilder(id).Build());
+            gunHandler.AddGun(GunLookup.Instance.GetBuilder(id).Build(), id);
         }
     }
 }

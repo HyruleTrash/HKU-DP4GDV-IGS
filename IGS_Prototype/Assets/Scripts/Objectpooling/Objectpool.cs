@@ -20,12 +20,20 @@ namespace LucasCustomClasses
                 DeactivateObject(item);
         }
 
+        public void DestroyObject(T item)
+        {
+            if (inactivePool.Contains(item))
+                inactivePool.Remove(item);
+            if (activePool.Contains(item))
+                activePool.Remove(item);
+
+            item.Destroy();
+        }
+
         public void ActivateObject(T item)
         {
             if (inactivePool.Contains(item))
-            {
                 inactivePool.Remove(item);
-            }
             
             item.Active = true;
             activePool.Add(item);
@@ -36,9 +44,7 @@ namespace LucasCustomClasses
         public void DeactivateObject(T item)
         {
             if (activePool.Contains(item))
-            {
                 activePool.Remove(item);
-            }
             
             item.Active = false;
             inactivePool.Add(item);

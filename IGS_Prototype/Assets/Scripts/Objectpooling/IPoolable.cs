@@ -9,5 +9,6 @@ namespace LucasCustomClasses
         public void OnEnableObject();
         public void OnDisableObject();
         public void DoDie();
+        public void Destroy();
     }
 }

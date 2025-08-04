@@ -96,5 +96,8 @@ public class Game : SingletonBehaviour<Game>
     public void ResetSaveData()
     {
         levelManager.currentLevel = 0;
+        if (entityManager.entityPool.GetInActiveObject(typeof(PlayerEntity), out var result))
+            entityManager.entityPool.DestroyObject(result);
+        GunInventoryUI.Instance.Reset();
     }
 }

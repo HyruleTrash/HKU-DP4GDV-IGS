@@ -45,4 +45,16 @@ public class GunInventoryUI : ScriptableObjectSingleton<GunInventoryUI>
             return;
         inventoryItemInstance[id].UnEquip();
     }
+
+    public void Reset()
+    {
+        inventoryItemInstance = new List<GunInventoryItemUI>();
+        if (!inventoryInstance) return;
+        foreach (var child in inventoryInstance.transform.GetComponentsInChildren<Transform>())
+        {
+            Destroy(child.gameObject);
+        }
+        GameObject.Destroy(inventoryAmmoCounterPrefab.instance);
+        GameObject.Destroy(inventoryReloadingPrefab.instance);
+    }
 }
