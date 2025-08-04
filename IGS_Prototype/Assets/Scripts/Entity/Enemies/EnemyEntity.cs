@@ -51,7 +51,8 @@ public class EnemyEntity : IEntity
     {
         if (invincibility)
             return;
-        PlayerInterfaceConsole.Instance.AddToConsole($"{damageData.damageText}\n{this.GetType()}{Body.GetInstanceID()}: Took <color=red>{damageData.damage}</color> damage");
+        if (damageData.damage != 0)
+            PlayerInterfaceConsole.Instance.AddToConsole($"{damageData.damageText}{this.GetType()}{Body.GetInstanceID()}: Took <color=red>{damageData.damage}</color> damage");
         healthSystem.TakeDamage(damageData.damage);
         invincibility = true;
         invincibilityTimer.Reset();

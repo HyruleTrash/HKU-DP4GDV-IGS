@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 32
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -16,4 +16,4 @@ MonoBehaviour:
     prefab: {fileID: 8630475558821879685, guid: 4eff0ba2d00f0da4a91bc0effa03a44b, type: 3}
     instance: {fileID: 0}
     instanceTextComponent: {fileID: 0}
-  consoleSize: 5
+  consoleSize: 2

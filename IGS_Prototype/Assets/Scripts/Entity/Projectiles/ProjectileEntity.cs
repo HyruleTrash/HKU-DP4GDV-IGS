@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using LucasCustomClasses;
 using UnityEngine;
 
 public class ProjectileEntity : TriggerEntity, IDamager
@@ -9,6 +10,8 @@ public class ProjectileEntity : TriggerEntity, IDamager
     public Rigidbody rb;
     public float baseDamage;
     private StringBuilder decoratorAffinitiesAsStrings;
+    private bool canDamage = true;
+    public Timer despawnTimer;
     
     public override void OnEnableObject()
     {
@@ -16,6 +19,12 @@ public class ProjectileEntity : TriggerEntity, IDamager
         Body.SetActive(true);
         layerMasks = new[] { typeof(IDamagable) };
         onTrigger = OnTrigger;
+
+        if (despawnTimer != null)
+        {
+            despawnTimer.running = false;
+            despawnTimer.onEnd = DoDie;
+        }
         
         decoratorAffinitiesAsStrings = new();
         foreach (DamageTypeDecorator decorator in damageTypes)
@@ -56,8 +65,16 @@ public class ProjectileEntity : TriggerEntity, IDamager
         damageTypes.Clear();
     }
 
+    public override void CustomUpdate()
+    {
+        base.CustomUpdate();
+        despawnTimer?.Update(Time.deltaTime);
+    }
+
     public DamageData RetrieveDamage(IDamagable other)
     {
+        if (!canDamage)
+            return new DamageData(0, "");
         StringBuilder damageText = new();
         float damage = baseDamage;
         
@@ -68,9 +85,10 @@ public class ProjectileEntity : TriggerEntity, IDamager
                 break;
         }
         damageText.Append($"Projectile hit with: {decoratorAffinitiesAsStrings} type damage. ");
-        damageText.Append($"Against entity with: {other.GetWeaknessesAndAffinities()}");
-        
-        DoDie(); // TODO: Make this take longer, add a delay
+        damageText.Append($"Against entity with: {other.GetWeaknessesAndAffinities()}\n");
+
+        despawnTimer.running = true;
+        canDamage = false;
         return new DamageData(damage, damageText.ToString());
     }
 }

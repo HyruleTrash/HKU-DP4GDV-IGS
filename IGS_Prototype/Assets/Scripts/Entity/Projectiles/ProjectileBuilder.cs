@@ -1,4 +1,5 @@
 ﻿using System;
+using LucasCustomClasses;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +10,7 @@ public class ProjectileBuilder : ScriptableObject
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float projectileHitRadius;
     [SerializeField] private int maxDecorators;
+    [SerializeField] private float despawnTimeAfterHit;
 
     public void Build(ProjectileEntity inactiveEntity, out ProjectileEntity activeEntity)
     {
@@ -22,6 +24,8 @@ public class ProjectileBuilder : ScriptableObject
         inactiveEntity.Active = true;
         Game.instance.GetEntityManager().entityPool.ActivateObject(inactiveEntity);
         activeEntity = inactiveEntity;
+        
+        activeEntity.despawnTimer = new Timer(despawnTimeAfterHit);
     }
 
     private ProjectileEntity CreateBase()

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 3087316741776568089, guid: 171a63af1f86c0a43a4ac3fc69f5910b, type: 3}
   projectileHitRadius: 0.6
-  maxDecorators: 0
+  maxDecorators: 3
+  despawnTimeAfterHit: 1
