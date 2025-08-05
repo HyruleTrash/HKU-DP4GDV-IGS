@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a53ef031c00d4c43bc2555bb0bf2efde, type: 3}
+  m_Name: DoorData
+  m_EditorClassIdentifier: 
+  position: {x: 10, y: 3, z: 10}
+  bodyPrefab: {fileID: 7510652708245588749, guid: 732837847380f934ba7053a2aa8191ca, type: 3}
+  rotation: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
+  keyBodyPrefab: {fileID: 1096122856038542936, guid: 439ce45f769560f46a4e004bb73307eb, type: 3}
+  keyPosition: {x: 10, y: 1, z: -15}
+  keyPickupRadius: 0.5

@@ -23,6 +23,12 @@ public class EnemyEntity : IEntity
     public void OnEnableObject()
     {
         healthSystem.HealMax();
+        var rb = Body.GetComponent<Rigidbody>();
+        if (rb)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
         Body.SetActive(true);
     }
 

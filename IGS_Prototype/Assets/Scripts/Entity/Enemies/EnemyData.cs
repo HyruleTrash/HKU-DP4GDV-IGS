@@ -19,6 +19,7 @@ public class EnemyData : LevelDataEntity
         if (entityManagerReference.entityPool.GetInActiveObject(typeof(EnemyEntity), out var result))
         {
             enemyEntity = (EnemyEntity)result;
+            enemyEntity.Body.transform.rotation = Quaternion.Euler(Vector3.zero);
             enemyEntity.Body.transform.position = position;
             
             entityManagerReference.entityPool.ActivateObject(enemyEntity);

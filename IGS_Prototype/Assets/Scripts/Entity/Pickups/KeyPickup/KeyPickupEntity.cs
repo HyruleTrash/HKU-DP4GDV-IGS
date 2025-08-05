@@ -22,6 +22,7 @@
     private void OnTrigger(IEntity obj)
     {
         doorEntity.Open();
+        PlayerInterfaceConsole.Instance.AddToConsole($"Door:{doorEntity.Body.GetInstanceID()} has opened");
         DoDie();
     }
 }
