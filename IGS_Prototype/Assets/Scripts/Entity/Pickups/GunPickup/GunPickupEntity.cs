@@ -1,5 +1,5 @@
 ﻿
-public class GunPickup : TriggerEntity
+public class GunPickupEntity : TriggerEntity
 {
     public int gunId;
 

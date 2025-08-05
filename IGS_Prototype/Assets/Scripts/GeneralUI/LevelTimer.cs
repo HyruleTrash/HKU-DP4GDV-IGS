@@ -36,7 +36,7 @@ public class LevelTimer : ScriptableObjectSingleton<LevelTimer>
 
     public void Update()
     {
-        timer.Update(Time.deltaTime);
+        timer?.Update(Time.deltaTime);
         textHolderPrefab.instanceTextComponent.text = timer.GetFormattedTime(true);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GunPickupData", menuName = "EntityData/GunPickupData")]
+[CreateAssetMenu(fileName = "GunPickupData", menuName = "EntityData/Pickups/GunPickupData")]
 public class GunPickupData : LevelDataEntity
 {
     [Header("Gun info")]
@@ -33,28 +33,28 @@ public class GunPickupData : LevelDataEntity
         if (!CheckGunId(gunId, out var lookupFound)) return null;
         
         EntityManager entityManagerReference = Game.instance.GetEntityManager();
-        GunPickup gunPickup;
+        GunPickupEntity gunPickupEntity;
 
-        if (entityManagerReference.entityPool.GetInActiveObject(typeof(GunPickup), out var result))
+        if (entityManagerReference.entityPool.GetInActiveObject(typeof(GunPickupEntity), out var result))
         {
-            gunPickup = (GunPickup)result;
-            gunPickup.Body.transform.position = position;
+            gunPickupEntity = (GunPickupEntity)result;
+            gunPickupEntity.Body.transform.position = position;
             
-            entityManagerReference.entityPool.ActivateObject(gunPickup);
+            entityManagerReference.entityPool.ActivateObject(gunPickupEntity);
         }
         else
         {
-            gunPickup = new GunPickup();
-            gunPickup.Active = true;
-            gunPickup.Body = Instantiate(bodyPrefab, position, Quaternion.identity);
+            gunPickupEntity = new GunPickupEntity();
+            gunPickupEntity.Active = true;
+            gunPickupEntity.Body = Instantiate(bodyPrefab, position, Quaternion.identity);
             
-            entityManagerReference.entityPool.AddToPool(gunPickup);
+            entityManagerReference.entityPool.AddToPool(gunPickupEntity);
         }
         
-        gunPickup.gunId = gunId;
-        gunPickup.triggerRadius = pickupRadius;
-        gunPickup.Setup();
+        gunPickupEntity.gunId = gunId;
+        gunPickupEntity.triggerRadius = pickupRadius;
+        gunPickupEntity.Setup();
         
-        return gunPickup;
+        return gunPickupEntity;
     }
 }
