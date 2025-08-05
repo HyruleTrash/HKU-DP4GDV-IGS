@@ -1,13 +1,24 @@
 @startuml
 
 Class Game << Singleton >>
-Game : PlayerData player
+Game : GameObject mainMenu
+Game : GameObject winScreen
+Game : GameObject deathScreen
+Game : GameObject gameUI
+Game : InputActionReference quitAction
 Game : LevelManager levelManager
 Game : EntityManager entityManager
-Game : UIButton startButton
+Game : void Start()
+Game : void Update()
+Game : void OnDrawGizmos()
 Game : void StartGame()
-Game : void UpdateGame()
-Game --* PlayerData
+Game : void OpenMainMenu()
+Game : void TriggerWinScreen()
+Game : void TriggerDeathScreen()
+Game : void CloseGame()
+Game : void GetEntityManager()
+Game : void NextLevel()
+Game : void ResetSaveData()
 Game --* LevelManager
 Game --* EntityManager
 

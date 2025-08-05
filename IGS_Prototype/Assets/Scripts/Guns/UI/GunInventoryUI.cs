@@ -25,9 +25,9 @@ public class GunInventoryUI : ScriptableObjectSingleton<GunInventoryUI>
 
     private void Setup()
     {
-        inventoryInstance = Instantiate(inventoryPrefab, Game.instance.gameInterface.transform);
-        inventoryAmmoCounterPrefab.Instantiate(Game.instance.gameInterface.transform);
-        inventoryReloadingPrefab.Instantiate(Game.instance.gameInterface.transform);
+        inventoryInstance = Instantiate(inventoryPrefab, Game.instance.gameUI.transform);
+        inventoryAmmoCounterPrefab.Instantiate(Game.instance.gameUI.transform);
+        inventoryReloadingPrefab.Instantiate(Game.instance.gameUI.transform);
     }
     
     private bool IsIdValid(int id) => id >= 0 && id < inventoryItemInstance.Count;

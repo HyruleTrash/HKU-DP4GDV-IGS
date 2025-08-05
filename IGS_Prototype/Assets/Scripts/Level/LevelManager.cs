@@ -24,6 +24,6 @@ public class LevelManager : ScriptableObject
         }
         
         currentLevel = 0;
-        Game.instance.TriggerEndScreen();
+        Game.instance.TriggerWinScreen();
     }
 }

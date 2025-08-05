@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 18401696}
   m_Layer: 5
-  m_Name: EndScreen
+  m_Name: WinScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1134,10 +1134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c36f9290128544cb1563af96a6c8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 435040109}
-  endScreen: {fileID: 18401695}
+  mainMenu: {fileID: 435040109}
+  winScreen: {fileID: 18401695}
   deathScreen: {fileID: 1356905600}
-  gameInterface: {fileID: 685432305}
+  gameUI: {fileID: 685432305}
   quitAction: {fileID: -3702783388742533518, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   levelManager: {fileID: 11400000, guid: 954c50ecf7ad5914da2668bfb35a9280, type: 2}
 --- !u!4 &814178276
@@ -1289,7 +1289,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 814178275}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: OpenMenu
+        m_MethodName: OpenMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2539,7 +2539,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 814178275}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: OpenMenu
+        m_MethodName: OpenMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

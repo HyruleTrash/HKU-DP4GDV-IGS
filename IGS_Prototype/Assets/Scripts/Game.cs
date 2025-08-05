@@ -6,10 +6,10 @@ using UnityEngine.Serialization;
 public class Game : SingletonBehaviour<Game>
 {
     [Header("UI")]
-    [SerializeField] private GameObject menu;
-    [SerializeField] private GameObject endScreen;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject deathScreen;
-    public GameObject gameInterface;
+    public GameObject gameUI;
     [Header("Input")]
     [SerializeField] private InputActionReference quitAction;
     [Header("Managers")]
@@ -19,14 +19,14 @@ public class Game : SingletonBehaviour<Game>
     private void Start()
     {
         entityManager = new EntityManager();
-        quitAction.action.performed += ctx => OpenMenu();
-        menu.SetActive(true);
+        quitAction.action.performed += ctx => OpenMainMenu();
+        mainMenu.SetActive(true);
     }
 
     private void Update()
     {
         entityManager.CustomUpdate();
-        if (gameInterface.activeInHierarchy)
+        if (gameUI.activeInHierarchy)
             LevelTimer.Instance.Update();
     }
 
@@ -42,32 +42,32 @@ public class Game : SingletonBehaviour<Game>
 
     public void StartGame()
     {
-        menu.SetActive(false);
-        gameInterface.SetActive(true);
+        mainMenu.SetActive(false);
+        gameUI.SetActive(true);
         levelManager.LoadLevel(levelManager.currentLevel);
         PlayerInterfaceConsole.Instance.Setup();
     }
 
-    public void OpenMenu()
+    public void OpenMainMenu()
     {
-        menu.SetActive(true);
-        gameInterface.SetActive(false);
-        endScreen.SetActive(false);
+        mainMenu.SetActive(true);
+        gameUI.SetActive(false);
+        winScreen.SetActive(false);
         deathScreen.SetActive(false);
         entityManager.DeactivateAllEntities();
     }
 
-    public void TriggerEndScreen()
+    public void TriggerWinScreen()
     {
         entityManager.DeactivateAllEntities();
-        gameInterface.SetActive(false);
-        endScreen.SetActive(true);
+        gameUI.SetActive(false);
+        winScreen.SetActive(true);
     }
     
     public void TriggerDeathScreen()
     {
         entityManager.DeactivateAllEntities();
-        gameInterface.SetActive(false);
+        gameUI.SetActive(false);
         deathScreen.SetActive(true);
     }
     

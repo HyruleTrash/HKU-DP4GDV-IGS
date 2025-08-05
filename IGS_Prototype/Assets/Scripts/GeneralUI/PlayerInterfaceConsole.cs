@@ -26,7 +26,7 @@ public class PlayerInterfaceConsole : ScriptableObjectSingleton<PlayerInterfaceC
     {
         if (textHolderPrefab.instance)
             return;
-        textHolderPrefab.Instantiate(Game.instance.gameInterface.transform);
+        textHolderPrefab.Instantiate(Game.instance.gameUI.transform);
     }
 
     private void CheckHistorySize()

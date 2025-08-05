@@ -11,11 +11,10 @@ public abstract class ScriptableObjectSingleton<T> : ScriptableObject where T : 
         {
             if (instance == null)
             {
-                T[] results = Resources.FindObjectsOfTypeAll<T>();
+                T[] results = Resources.LoadAll<T>("");
                 if (results.Length == 0)
                 {
                     #if UNITY_EDITOR
-                    // It has a tendency to throw this error every second or two, feel free to ignore... its unity being jank (in case instance is not missing)
                     if (Application.isPlaying)
                         Debug.LogError("ScriptableObjectSingleton: No objects found in Resources folder, scriptable object instance missing");
                     #endif
@@ -40,7 +39,6 @@ public abstract class ScriptableObjectSingleton<T> : ScriptableObject where T : 
                     
                     return null;
                 }
-
                 
                 instance = results[0];
                 instance.hideFlags = HideFlags.DontUnloadUnusedAsset;
