@@ -1,0 +1,16 @@
+@startuml
+class PlayerEntity {
+    + Active : bool <<get>> <<set>>
+    + PlayerEntity(playerData:PlayerData)
+    + OnEnableObject() : void
+    + OnDisableObject() : void
+    + DoDie() : void
+    + CustomUpdate() : void
+    + CustomUpdateAtFixedRate() : void
+    + GetCameraTransform() : Transform
+    + GetBulletDirection() : Vector3
+    + Destroy() : void
+}
+IEntity <|-- PlayerEntity
+PlayerEntity --> "gunHandler" GunHandler
+@enduml

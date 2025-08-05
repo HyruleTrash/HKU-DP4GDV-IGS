@@ -1,0 +1,5 @@
+@startuml
+class LevelData {
+    + Load() : void
+}
+@enduml

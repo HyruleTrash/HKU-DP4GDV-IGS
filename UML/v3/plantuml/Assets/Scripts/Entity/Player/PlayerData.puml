@@ -1,0 +1,9 @@
+@startuml
+class PlayerData {
+    + <<override>> Load() : IEntity
+}
+LevelDataEntity <|-- PlayerData
+PlayerData --> "camera" FirstPersonCamera
+PlayerData --> "movementController" FirstPersonMovement
+PlayerData --> "gunLevelData" GunLevelData
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+class HurtTriggerEntity {
+    + <<override>> OnEnableObject() : void
+    + <<override>> OnDisableObject() : void
+    + Initialize(onDamaged:Action<DamageData>, weaknesses:List<DamageType>, affinities:List<DamageType>, radius:float) : void
+    + TakeDamage(other:IDamager) : void
+    + GetWeaknessesAndAffinities() : string
+}
+class "List`1"<T> {
+}
+class "Action`1"<T> {
+}
+TriggerEntity <|-- HurtTriggerEntity
+IDamagable <|-- HurtTriggerEntity
+HurtTriggerEntity --> "Weaknesses<DamageType>" "List`1"
+HurtTriggerEntity --> "Affinities<DamageType>" "List`1"
+HurtTriggerEntity --> "OnDamaged<IDamager>" "Action`1"
+@enduml

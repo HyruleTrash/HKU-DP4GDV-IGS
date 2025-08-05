@@ -1,0 +1,5 @@
+@startuml
+class ProjectileBuilder {
+    + Build(inactiveEntity:ProjectileEntity, activeEntity:ProjectileEntity) : void
+}
+@enduml

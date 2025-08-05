@@ -1,0 +1,10 @@
+@startuml
+class HealthSystem {
+    + HealthSystem(configData:HealthData)
+    + TakeDamage(damage:float) : void
+    + Heal(heal:float) : void
+    + HealMax() : void
+}
+HealthSystem --> "onHealthDrained" Action
+HealthSystem --> "configData" HealthData
+@enduml

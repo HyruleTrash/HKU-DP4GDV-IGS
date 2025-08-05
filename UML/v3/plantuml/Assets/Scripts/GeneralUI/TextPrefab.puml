@@ -1,0 +1,5 @@
+@startuml
+class TextPrefab {
+    + Instantiate(parent:Transform) : void
+}
+@enduml

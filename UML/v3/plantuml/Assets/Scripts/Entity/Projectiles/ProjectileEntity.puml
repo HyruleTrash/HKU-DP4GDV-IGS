@@ -1,0 +1,16 @@
+@startuml
+class ProjectileEntity {
+    + baseDamage : float
+    + <<override>> OnEnableObject() : void
+    + <<override>> OnDisableObject() : void
+    + HasAffinity(damageType:DamageType) : bool
+    + AddDamageTypeDecorator(type:DamageType) : void
+    + ClearDamageTypes() : void
+    + <<override>> CustomUpdate() : void
+    + RetrieveDamage(other:IDamagable) : DamageData
+}
+TriggerEntity <|-- ProjectileEntity
+IDamager <|-- ProjectileEntity
+ProjectileEntity --> "rb" Rigidbody
+ProjectileEntity --> "despawnTimer" Timer
+@enduml

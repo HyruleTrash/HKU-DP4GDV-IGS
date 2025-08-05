@@ -1,0 +1,9 @@
+@startuml
+class LevelEndEntity {
+    + LevelEndEntity(data:LevelEndData)
+    + <<override>> OnEnableObject() : void
+    + <<override>> OnDisableObject() : void
+}
+TriggerEntity <|-- LevelEndEntity
+LevelEndEntity --> "data" LevelEndData
+@enduml

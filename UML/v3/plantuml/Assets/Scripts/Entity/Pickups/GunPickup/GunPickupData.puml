@@ -1,0 +1,6 @@
+@startuml
+class GunPickupData {
+    + <<override>> Load() : IEntity
+}
+LevelDataEntity <|-- GunPickupData
+@enduml

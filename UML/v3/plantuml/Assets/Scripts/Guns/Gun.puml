@@ -1,0 +1,13 @@
+@startuml
+class Gun {
+    + canShoot : bool
+    + Gun(ammoCapacity:int, baseDamage:float, force:float)
+    + Equip() : void
+    + Unequip() : void
+    + TriggerReload() : void
+    + TryShoot(shootData:ShootData) : void
+}
+Gun --> "fireRateTimer" Timer
+Gun --> "reloadTimer" Timer
+Gun --> "shootStrategy" IShootStrategy
+@enduml

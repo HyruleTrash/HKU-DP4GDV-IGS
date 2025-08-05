@@ -1,0 +1,8 @@
+@startuml
+class DamageData {
+    + damage : float
+    + damageText : string = ""
+    + DamageData(damage:float)
+    + DamageData(damage:float, damageText:string)
+}
+@enduml

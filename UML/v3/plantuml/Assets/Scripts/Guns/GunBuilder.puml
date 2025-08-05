@@ -1,0 +1,12 @@
+@startuml
+class GunBuilder {
+    + Build() : Gun
+    + GetWithDeviation(basis:float, record:FloatDeviationRecord, condition:Func<float, bool>) : float
+}
+class FloatDeviationRecord {
+    + useRandom : bool
+    + maximumValue : float
+    + minimumValue : float
+}
+GunBuilder +-- FloatDeviationRecord
+@enduml

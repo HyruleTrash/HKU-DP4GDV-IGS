@@ -1,0 +1,7 @@
+@startuml
+class LevelManager {
+    + currentLevel : int = 0
+    + LoadLevel(level:int) : void
+    + AdvanceLevel() : void
+}
+@enduml

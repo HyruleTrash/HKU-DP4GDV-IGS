@@ -1,0 +1,12 @@
+@startuml
+class RaycastShootStrategy {
+    + Shoot(data:ShootData) : void
+}
+class RaycastDamageHolder {
+    + RaycastDamageHolder(damage:float)
+    + RetrieveDamage(other:IDamagable) : DamageData
+}
+IShootStrategy <|-- RaycastShootStrategy
+RaycastShootStrategy +-- RaycastDamageHolder
+IDamager <|-- RaycastDamageHolder
+@enduml

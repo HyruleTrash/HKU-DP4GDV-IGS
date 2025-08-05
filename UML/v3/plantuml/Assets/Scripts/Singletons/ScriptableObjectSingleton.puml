@@ -1,0 +1,5 @@
+@startuml
+abstract class "ScriptableObjectSingleton"<T> {
+    + {static} Instance : T <<get>>
+}
+@enduml

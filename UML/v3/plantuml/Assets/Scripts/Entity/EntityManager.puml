@@ -1,0 +1,13 @@
+@startuml
+class EntityManager {
+    + CustomUpdate() : void
+    + CustomUpdateAtFixedRate() : void
+    + DeactivateAllEntities() : void
+    + OverlapRadiusOnLayerMask(origin:Vector3, radius:float, layerMask:System.Type, hitEntities:List<IEntity>, result:Action<IEntity>) : void
+    + Raycast(origin:Vector3, direction:Vector3, hit:RaycastHit, hitEntity:IEntity, maxDistance:float, layerMask:int) : bool
+    + OnDrawGizmos() : void
+}
+class "ObjectPool`1"<T> {
+}
+EntityManager o-> "entityPool<IEntity>" "ObjectPool`1"
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class GunInventoryItemUI {
+    + GunInventoryItemUI(instance:GameObject, equipIconPrefab:GameObject, equipped:bool)
+    + Equip() : void
+    + UnEquip() : void
+}
+@enduml

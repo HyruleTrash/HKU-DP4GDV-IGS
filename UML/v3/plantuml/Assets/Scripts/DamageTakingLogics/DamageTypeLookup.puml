@@ -1,0 +1,15 @@
+@startuml
+class DamageTypeLookup {
+}
+class DamageTypeRecord {
+    + multiplier : float
+    + DamageTypeRecord(damageType:DamageType, multiplier:float)
+}
+class "Dictionary`2"<T1,T2> {
+}
+DamageTypeLookup o-> "affinityTable<DamageType,DamageTypeRecord[]>" "Dictionary`2"
+DamageTypeLookup o-> "weaknessTable<DamageType,DamageTypeRecord[]>" "Dictionary`2"
+DamageTypeLookup o-> "colorTable<DamageType,Color>" "Dictionary`2"
+DamageTypeLookup +-- DamageTypeRecord
+DamageTypeRecord --> "damageType" DamageType
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class EnemyData {
+    + <<override>> Load() : IEntity
+}
+LevelDataEntity <|-- EnemyData
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+class HurtTriggerData {
+    + triggerRadius : float
+    + <<override>> Load() : IEntity
+    + Load(parent:Transform, onDamaged:Action<DamageData>, weaknesses:List<DamageType>, affinities:List<DamageType>) : IEntity
+}
+LevelDataEntity <|-- HurtTriggerData
+@enduml

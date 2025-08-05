@@ -1,0 +1,14 @@
+@startuml
+class "ObjectPool`1"<T> {
+    + AddToPool(item:T) : void
+    + DestroyObject(item:T) : void
+    + ActivateObject(item:T) : void
+    + DeactivateObject(item:T) : void
+    + GetActiveObjects() : T[]
+    + GetInActiveObjects() : T[]
+    + GetActiveObjects(objectType:System.Type) : T[]
+    + GetInActiveObjects(objectType:System.Type) : T[]
+    + GetActiveObject(objectType:System.Type, result:T) : bool
+    + GetInActiveObject(objectType:System.Type, result:T) : bool
+}
+@enduml

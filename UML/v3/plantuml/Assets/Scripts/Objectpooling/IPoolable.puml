@@ -1,0 +1,9 @@
+@startuml
+interface IPoolable {
+    + Active : bool <<get>> <<set>>
+    + OnEnableObject() : void
+    + OnDisableObject() : void
+    + DoDie() : void
+    + Destroy() : void
+}
+@enduml

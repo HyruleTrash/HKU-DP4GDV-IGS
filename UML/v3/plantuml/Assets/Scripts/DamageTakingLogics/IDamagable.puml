@@ -1,0 +1,10 @@
+@startuml
+interface IDamagable {
+    + TakeDamage(other:IDamager) : void
+    + GetWeaknessesAndAffinities() : string
+}
+class "List`1"<T> {
+}
+class "Action`1"<T> {
+}
+@enduml

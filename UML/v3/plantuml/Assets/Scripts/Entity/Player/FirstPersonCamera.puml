@@ -1,0 +1,8 @@
+@startuml
+class FirstPersonCamera {
+    + Active : bool <<get>> <<set>>
+    + Load(playerEntityBody:GameObject) : void
+    + CustomUpdate(playerEntityBody:GameObject) : void
+    + GetTransform() : Transform
+}
+@enduml

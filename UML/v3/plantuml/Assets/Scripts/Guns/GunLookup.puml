@@ -1,0 +1,9 @@
+@startuml
+class GunLookup {
+    + GetBuilder(id:int) : GunBuilder
+    + GetCount() : int
+}
+class "ScriptableObjectSingleton"<T> {
+}
+"ScriptableObjectSingleton" "<GunLookup>" <|-- GunLookup
+@enduml

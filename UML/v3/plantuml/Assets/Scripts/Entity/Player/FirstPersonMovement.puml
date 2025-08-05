@@ -1,0 +1,7 @@
+@startuml
+class FirstPersonMovement {
+    + Load(playerEntityBody:GameObject) : void
+    + Active : bool <<get>> <<set>>
+    + CustomUpdateAtFixedRate(playerEntityBody:GameObject) : void
+}
+@enduml

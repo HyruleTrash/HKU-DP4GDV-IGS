@@ -1,0 +1,13 @@
+@startuml
+class GunInventoryUI {
+    + AddGun(newGun:Gun) : void
+    + Equip(id:int) : void
+    + UnEquip(id:int) : void
+    + Reset() : void
+}
+class "ScriptableObjectSingleton"<T> {
+}
+"ScriptableObjectSingleton" "<GunInventoryUI>" <|-- GunInventoryUI
+GunInventoryUI --> "inventoryAmmoCounterPrefab" TextPrefab
+GunInventoryUI --> "inventoryReloadingPrefab" TextPrefab
+@enduml

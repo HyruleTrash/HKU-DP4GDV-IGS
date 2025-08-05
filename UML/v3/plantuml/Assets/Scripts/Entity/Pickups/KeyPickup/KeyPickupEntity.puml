@@ -1,0 +1,9 @@
+@startuml
+class KeyPickupEntity {
+    + Setup() : void
+    + <<override>> OnEnableObject() : void
+    + <<override>> OnDisableObject() : void
+}
+TriggerEntity <|-- KeyPickupEntity
+KeyPickupEntity --> "doorEntity" DoorEntity
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+class Game {
+    + StartGame() : void
+    + OpenMainMenu() : void
+    + TriggerWinScreen() : void
+    + TriggerDeathScreen() : void
+    + {static} CloseGame() : void
+    + GetEntityManager() : EntityManager
+    + NextLevel() : void
+    + ResetSaveData() : void
+}
+class "SingletonBehaviour"<T> {
+}
+"SingletonBehaviour" "<Game>" <|-- Game
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class HealthData {
+    + maxHealth : int
+    + Generate() : HealthSystem
+}
+@enduml

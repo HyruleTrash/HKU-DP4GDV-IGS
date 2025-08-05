@@ -1,0 +1,13 @@
+@startuml
+class EnemyEntity {
+    + Active : bool <<get>> <<set>>
+    + EnemyEntity(healthData:HealthData, hitInvincibilityTime:float)
+    + OnEnableObject() : void
+    + OnDisableObject() : void
+    + DoDie() : void
+    + CustomUpdate() : void
+    + CustomUpdateAtFixedRate() : void
+    + TakeDamage(damageData:DamageData) : void
+}
+IEntity <|-- EnemyEntity
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+class Timer {
+    + running : bool
+    + Timer(maxTime:float, onEnd:System.Action)
+    + Timer(maxTime:float)
+    + Reset() : void
+    + Update(dt:double) : void
+    + CheckIfEndIsReached() : void
+    + GetCurrentTime() : double
+    + GetFormattedTime(countDown:bool) : string
+}
+@enduml

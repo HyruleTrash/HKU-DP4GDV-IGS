@@ -1,0 +1,7 @@
+@startuml
+class LevelEndData {
+    + triggerRadius : float
+    + <<override>> Load() : IEntity
+}
+LevelDataEntity <|-- LevelEndData
+@enduml

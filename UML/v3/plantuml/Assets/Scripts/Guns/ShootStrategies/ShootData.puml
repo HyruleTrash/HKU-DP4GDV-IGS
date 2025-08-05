@@ -1,0 +1,7 @@
+@startuml
+class ShootData {
+    + baseDamage : float
+    + force : float
+}
+ShootData --> "shooter" IEntity
+@enduml

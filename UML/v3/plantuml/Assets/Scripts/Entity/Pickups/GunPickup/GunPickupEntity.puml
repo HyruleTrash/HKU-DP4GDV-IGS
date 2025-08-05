@@ -1,0 +1,9 @@
+@startuml
+class GunPickupEntity {
+    + gunId : int
+    + Setup() : void
+    + <<override>> OnEnableObject() : void
+    + <<override>> OnDisableObject() : void
+}
+TriggerEntity <|-- GunPickupEntity
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class DamageTypeDecorator {
+    + DamageTypeDecorator(type:DamageType)
+    + CalculateDamage(other:IDamagable, damage:float) : float
+}
+DamageTypeDecorator --> "affinity" DamageType
+@enduml

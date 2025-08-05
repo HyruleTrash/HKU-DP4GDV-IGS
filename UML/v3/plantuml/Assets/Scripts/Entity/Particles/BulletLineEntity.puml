@@ -1,0 +1,13 @@
+@startuml
+class BulletLineEntity {
+    + Active : bool <<get>> <<set>>
+    + BulletLineEntity(material:Material)
+    + OnEnableObject() : void
+    + OnDisableObject() : void
+    + SetData(origin:Vector3, target:Vector3, material:Material) : void
+    + DoDie() : void
+    + CustomUpdate() : void
+    + CustomUpdateAtFixedRate() : void
+}
+IEntity <|-- BulletLineEntity
+@enduml

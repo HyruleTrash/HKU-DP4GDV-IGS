@@ -1,0 +1,6 @@
+@startuml
+class ProjectileShootStrategy {
+    + Shoot(data:ShootData) : void
+}
+IShootStrategy <|-- ProjectileShootStrategy
+@enduml

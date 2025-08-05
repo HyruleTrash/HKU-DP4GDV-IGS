@@ -1,0 +1,6 @@
+@startuml
+class DoorData {
+    + <<override>> Load() : IEntity
+}
+LevelDataEntity <|-- DoorData
+@enduml

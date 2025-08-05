@@ -1,0 +1,13 @@
+@startuml
+abstract class TriggerEntity {
+    + Active : bool <<get>> <<set>>
+    + triggerRadius : float
+    + isChecking : bool = true
+    + <<virtual>> OnEnableObject() : void
+    + <<virtual>> OnDisableObject() : void
+    + <<virtual>> DoDie() : void
+    + <<virtual>> CustomUpdate() : void
+    + <<virtual>> CustomUpdateAtFixedRate() : void
+}
+IEntity <|-- TriggerEntity
+@enduml

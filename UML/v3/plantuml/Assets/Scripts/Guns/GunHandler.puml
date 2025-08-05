@@ -1,0 +1,13 @@
+@startuml
+class GunHandler {
+    + activeGunId : int
+    + GunHandler(playerReference:PlayerEntity)
+    + AddGun(newGun:Gun, id:int) : void
+    + EquipNext() : void
+    + Equip(next:int) : void
+    + CustomUpdate() : void
+    + TryShoot() : void
+    + Reload() : void
+    + Destroy() : void
+}
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class GunLevelData {
+    + Load(gunHandler:GunHandler) : void
+}
+@enduml

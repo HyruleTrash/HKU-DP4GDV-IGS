@@ -1,0 +1,7 @@
+@startuml
+interface IEntity {
+    + CustomUpdate() : void
+    + CustomUpdateAtFixedRate() : void
+}
+IPoolable <|-- IEntity
+@enduml

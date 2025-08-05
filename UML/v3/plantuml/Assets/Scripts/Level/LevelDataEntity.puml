@@ -1,0 +1,5 @@
+@startuml
+abstract class LevelDataEntity {
+    + {abstract} Load() : IEntity
+}
+@enduml

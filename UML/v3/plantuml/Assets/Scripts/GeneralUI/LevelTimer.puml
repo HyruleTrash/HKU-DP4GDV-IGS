@@ -1,0 +1,10 @@
+@startuml
+class LevelTimer {
+    + maxTime : float
+    + Setup(newMaxTime:float) : void
+    + Update() : void
+}
+class "ScriptableObjectSingleton"<T> {
+}
+"ScriptableObjectSingleton" "<LevelTimer>" <|-- LevelTimer
+@enduml

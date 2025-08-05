@@ -1,0 +1,5 @@
+@startuml
+interface IDamager {
+    + RetrieveDamage(other:IDamagable) : DamageData
+}
+@enduml

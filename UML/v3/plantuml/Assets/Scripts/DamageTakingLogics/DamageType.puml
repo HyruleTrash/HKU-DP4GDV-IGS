@@ -1,0 +1,8 @@
+@startuml
+enum DamageType {
+    Frost,
+    Fire,
+    Dark,
+    Holy,
+}
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+class DoorEntity {
+    + Active : bool <<get>> <<set>>
+    + Open() : void
+    + OnEnableObject() : void
+    + OnDisableObject() : void
+    + DoDie() : void
+    + CustomUpdate() : void
+    + CustomUpdateAtFixedRate() : void
+}
+IEntity <|-- DoorEntity
+@enduml

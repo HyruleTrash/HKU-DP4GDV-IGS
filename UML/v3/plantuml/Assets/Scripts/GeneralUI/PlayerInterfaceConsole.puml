@@ -1,0 +1,9 @@
+@startuml
+class PlayerInterfaceConsole {
+    + AddToConsole(text:string) : void
+    + Setup() : void
+}
+class "ScriptableObjectSingleton"<T> {
+}
+"ScriptableObjectSingleton" "<PlayerInterfaceConsole>" <|-- PlayerInterfaceConsole
+@enduml
