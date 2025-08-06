@@ -16,4 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e220d0723b8f0594b8c78e913d6c5756, type: 2}
   - {fileID: 11400000, guid: d980f1ce837211a40b765ac67024e37a, type: 2}
   - {fileID: 11400000, guid: cd3e7dda1768e5b4984f8d8ee373e94c, type: 2}
+  - {fileID: 11400000, guid: c61f729d68a1ff243ac531fc7544becf, type: 2}
   levelTime: 80
