@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a53ef031c00d4c43bc2555bb0bf2efde, type: 3}
-  m_Name: DoorData
+  m_Name: DoorData 1
   m_EditorClassIdentifier: 
-  position: {x: 0, y: 3, z: 15}
+  position: {x: -5.859803, y: 2, z: -29.185255}
   bodyPrefab: {fileID: 7510652708245588749, guid: 732837847380f934ba7053a2aa8191ca, type: 3}
   rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
   keyBodyPrefab: {fileID: 1096122856038542936, guid: 439ce45f769560f46a4e004bb73307eb, type: 3}
-  keyPosition: {x: -5.91, y: 1, z: -26.56}
+  keyPosition: {x: 6.51, y: 1, z: -46.62}
   keyPickupRadius: 1

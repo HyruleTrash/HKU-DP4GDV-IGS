@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886e1f8f3f0942969d6ffd4ba3c74770, type: 3}
+  m_Name: EnemyData
+  m_EditorClassIdentifier: 
+  position: {x: -16.31016, y: 1, z: -22.879305}
+  bodyPrefab: {fileID: 3126043481286526346, guid: a419be8157a18ed4fad9b2741f5d4fde, type: 3}
+  weaknesses: 00000000
+  affinities: 01000000
+  healthData: {fileID: 11400000, guid: f81d7d063f58c2447b3adbf91af5bc57, type: 2}
+  hurtTriggerDatas:
+  - {fileID: 11400000, guid: 0ca4c5c043ce4da47950aa12ddd9d9e5, type: 2}
+  - {fileID: 11400000, guid: 5a6e88cfbab804c4c990944661f1d0c2, type: 2}
+  - {fileID: 11400000, guid: e20600caba72dbb44b71403695e43b9e, type: 2}
+  hitInvincibilityTime: 1
