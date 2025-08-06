@@ -31,15 +31,18 @@ public class GunLevelData : ScriptableObject
         }
     }
 
-    public void Load(GunHandler gunHandler)
+    public void LoadGuns(GunHandler gunHandler)
     {
-        shootAction.action.performed += ctx => gunHandler.TryShoot();
-        equipAction.action.performed += ctx => gunHandler.EquipNext();
-        reloadAction.action.performed += ctx => gunHandler.Reload();
-        
         foreach (var id in registeredGuns)
         {
             gunHandler.AddGun(GunLookup.Instance.GetBuilder(id).Build(), id);
         }
+    }
+
+    public void LoadActions(GunHandler gunHandler)
+    {
+        shootAction.action.performed += ctx => gunHandler.TryShoot();
+        equipAction.action.performed += ctx => gunHandler.EquipNext();
+        reloadAction.action.performed += ctx => gunHandler.Reload();
     }
 }

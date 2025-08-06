@@ -38,11 +38,12 @@ public class PlayerData : LevelDataEntity
             movementController.Active = true;
 
             playerEntity.gunHandler = new GunHandler(playerEntity);
-            gunLevelData.Load(playerEntity.gunHandler);
+            gunLevelData.LoadActions(playerEntity.gunHandler);
             
             entityManagerReference.entityPool.AddToPool(playerEntity);
         }
         
+        gunLevelData?.LoadGuns(playerEntity.gunHandler);
         return playerEntity;
     }
 }

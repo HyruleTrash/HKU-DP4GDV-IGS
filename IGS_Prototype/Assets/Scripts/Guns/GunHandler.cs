@@ -5,6 +5,7 @@ public class GunHandler
 {
     private PlayerEntity playerReference;
     private Dictionary<int, Gun> activeGuns = new();
+    private List<int> gunOrder = new();
     private GameObject bulletOrigin;
     private bool active = true;
     public int activeGunId = -1;
@@ -24,37 +25,45 @@ public class GunHandler
 
     public void AddGun(Gun newGun, int id)
     {
-        activeGuns.Add(id, newGun);
+        if (!activeGuns.TryAdd(id, newGun))
+            return;
+        gunOrder.Add(id);
         GunInventoryUI.Instance.AddGun(newGun);
     }
 
     public void EquipNext()
     {
-        if (active)
-            Equip(activeGunId + 1);
+        if (!active) return;
+        
+        var currentIndexInOrder = gunOrder.IndexOf(activeGunId);
+        var nextGunId = currentIndexInOrder + 1 == gunOrder.Count ? 0 : gunOrder[currentIndexInOrder + 1];
+        if (!activeGuns.ContainsKey(nextGunId))
+            nextGunId = 0;
+
+        Unequip(activeGunId);
+        Equip(nextGunId);
+        activeGunId = nextGunId;
     }
 
-    public void Equip(int next)
+    public void Equip(int id)
     {
-        if (!active)
+        if (!active || !activeGuns.ContainsKey(id))
             return;
-        if (IsGunIdValid(activeGunId))
-        {
-            activeGuns[activeGunId].Unequip();
-            GunInventoryUI.Instance.UnEquip(activeGunId);
-        }
-        activeGunId = next;
-        if (activeGunId > activeGuns.Count - 1) // -1 due to zero indexing
-            activeGunId = 0;
-        activeGuns[activeGunId].Equip();
-        GunInventoryUI.Instance.Equip(activeGunId);
+        activeGuns[id].Equip();
+        GunInventoryUI.Instance.Equip(activeGuns[id]);
     }
-    
-    private bool IsGunIdValid(int id) => id >= 0 && id <= activeGuns.Count - 1;
+
+    public void Unequip(int id)
+    {
+        if (!active || !activeGuns.ContainsKey(id))
+            return;
+        activeGuns[id].Unequip();
+        GunInventoryUI.Instance.UnEquip(activeGuns[id]);
+    }
 
     public void CustomUpdate()
     {
-        if (!IsGunIdValid(activeGunId))
+        if (!activeGuns.ContainsKey(activeGunId))
             return;
         Gun currentGun = activeGuns[activeGunId];
         currentGun.fireRateTimer.Update(Time.deltaTime);
@@ -65,7 +74,7 @@ public class GunHandler
     {
         if (!active)
             return;
-        if (!IsGunIdValid(activeGunId))
+        if (!activeGuns.ContainsKey(activeGunId))
             return;
         Gun currentGun = activeGuns[activeGunId];
         bulletOrigin.transform.localPosition = currentGun.bulletOrigin;
@@ -81,7 +90,7 @@ public class GunHandler
     {
         if (!active)
             return;
-        if (!IsGunIdValid(activeGunId))
+        if (!activeGuns.ContainsKey(activeGunId))
             return;
         Gun currentGun = activeGuns[activeGunId];
         currentGun.TriggerReload();

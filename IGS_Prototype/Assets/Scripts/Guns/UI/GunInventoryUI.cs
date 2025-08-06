@@ -13,14 +13,14 @@ public class GunInventoryUI : ScriptableObjectSingleton<GunInventoryUI>
     public TextPrefab inventoryAmmoCounterPrefab;
     public TextPrefab inventoryReloadingPrefab;
     private GameObject inventoryInstance;
-    private List<GunInventoryItemUI> inventoryItemInstance = new ();
+    private Dictionary<Gun, GunInventoryItemUI> inventoryItemInstance = new ();
     
     public void AddGun(Gun newGun)
     {
         if (inventoryItemInstance.Count == 0)
             Setup();
         
-        inventoryItemInstance.Add(new GunInventoryItemUI(Instantiate(inventoryItemPrefab, inventoryInstance.transform), inventoryEquipIconPrefab, false));
+        inventoryItemInstance.Add(newGun, new GunInventoryItemUI(Instantiate(inventoryItemPrefab, inventoryInstance.transform), inventoryEquipIconPrefab, false));
     }
 
     private void Setup()
@@ -30,25 +30,23 @@ public class GunInventoryUI : ScriptableObjectSingleton<GunInventoryUI>
         inventoryReloadingPrefab.Instantiate(Game.instance.gameUI.transform);
     }
     
-    private bool IsIdValid(int id) => id >= 0 && id < inventoryItemInstance.Count;
-    
-    public void Equip(int id)
+    public void Equip(Gun id)
     {
-        if (!IsIdValid(id))
+        if (!inventoryItemInstance.ContainsKey(id))
             return;
         inventoryItemInstance[id].Equip();
     }
 
-    public void UnEquip(int id)
+    public void UnEquip(Gun id)
     {
-        if (!IsIdValid(id))
+        if (!inventoryItemInstance.ContainsKey(id))
             return;
         inventoryItemInstance[id].UnEquip();
     }
 
     public void Reset()
     {
-        inventoryItemInstance = new List<GunInventoryItemUI>();
+        inventoryItemInstance = new Dictionary<Gun, GunInventoryItemUI>();
         if (!inventoryInstance) return;
         foreach (var child in inventoryInstance.transform.GetComponentsInChildren<Transform>())
         {
