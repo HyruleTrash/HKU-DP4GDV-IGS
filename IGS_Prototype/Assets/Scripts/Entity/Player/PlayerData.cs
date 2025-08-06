@@ -9,7 +9,7 @@ public class PlayerData : LevelDataEntity
     [SerializeField] private GameObject bodyPrefab;
     public FirstPersonCamera camera;
     public FirstPersonMovement movementController;
-    [FormerlySerializedAs("gunInventory")] public GunLevelData gunLevelData;
+    public GunLevelData gunLevelData;
     
     public override IEntity Load()
     {

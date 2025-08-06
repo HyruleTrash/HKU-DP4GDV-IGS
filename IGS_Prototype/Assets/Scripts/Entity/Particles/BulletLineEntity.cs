@@ -6,6 +6,7 @@ public class BulletLineEntity : IEntity
     public GameObject Body {get; set;}
     private LineRenderer lineRenderer;
     private Material material;
+    public float disappearSpeed;
     public bool Active { get; set; }
 
     public BulletLineEntity(Material material)
@@ -62,7 +63,7 @@ public class BulletLineEntity : IEntity
         Color color = lineRenderer.startColor;
 
         // Reduce alpha over time
-        color.a = Mathf.MoveTowards(color.a, 0f, Time.deltaTime);
+        color.a = Mathf.MoveTowards(color.a, 0f, Time.deltaTime * disappearSpeed);
         
         // Update LineRenderer colors
         lineRenderer.startColor = color;

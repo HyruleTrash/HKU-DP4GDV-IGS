@@ -15,7 +15,8 @@ public class RaycastShootStrategy : ScriptableObject, IShootStrategy
         }
     }
     
-    [FormerlySerializedAs("BulletPathMaterial")] [SerializeField] private Material bulletPathMaterial;
+    [SerializeField] private Material bulletPathMaterial;
+    [SerializeField] private float bulletPathDisappearSpeed = 2f;
     [SerializeField] private float maxDistance = 1000f;
     [SerializeField] private LayerMask layerMask;
     
@@ -35,6 +36,7 @@ public class RaycastShootStrategy : ScriptableObject, IShootStrategy
             bulletLineEntity.Active = true;
             entityManagerReference.entityPool.AddToPool(bulletLineEntity);
         }
+        bulletLineEntity.disappearSpeed = bulletPathDisappearSpeed;
 
         bool hitAnEntity = entityManagerReference.Raycast(data.origin, data.direction, out RaycastHit hit, out var entity, maxDistance, layerMask);
         if (hit.collider != null)

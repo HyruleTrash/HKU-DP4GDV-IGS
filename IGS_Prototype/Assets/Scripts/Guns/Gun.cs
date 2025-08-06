@@ -33,10 +33,10 @@ public class Gun
 
     public void Equip()
     {
-        reloadTimer.running = false;
-        fireRateTimer.running = false;
         reloadTimer.Reset();
         fireRateTimer.Reset();
+        reloadTimer.running = false;
+        fireRateTimer.running = false;
         canShoot = CurrentAmmo > 0;
         reloadTimer.onEnd = Reload;
         fireRateTimer.onEnd = () => canShoot = true;
